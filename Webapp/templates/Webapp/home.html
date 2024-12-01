@@ -1,0 +1,497 @@
+{% extends "Webapp/header.html" %}
+{%block content%}
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrot Hub</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Outfit, sans-serif;
+            color: #333;
+            background-color: #f8f8f8;
+        }
+       
+        /* Header */
+        .header {
+            background-color: #1fb322;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .header .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .header nav {
+            display: flex;
+            gap: 20px;
+            position: relative;
+        }
+
+        .header nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            position: relative;
+        }
+
+        /* Dropdown Menu for Districts */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #1fb322;
+            color: white;
+            padding: 10px;
+            top: 100%;
+            left: 0;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            max-height: 300px;
+            overflow-y: auto;
+            width: 200px;
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            display: block;
+            color: white;
+            padding: 5px 10px;
+            text-decoration: none;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #159d1e;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        /* Hero Section */
+        .hero {
+            background-image: url({% static "Webapp/images/bg.jpeg" %}); /* Add path to your image */
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            padding: 100px 20px;
+            color: #ffffff;
+            position: relative;
+        }
+
+        .hero h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .search-bar {
+            margin-top: 20px;
+        }
+
+        .search-bar input[type="text"] {
+            padding: 10px;
+            width: 350px;
+            border: none;
+            border-radius: 14px;
+            margin-right: 10px;
+            border: 2px solid white;
+            background-color:transparent;
+        }
+        input::placeholder {
+            color: white;
+          }
+        .search-bar button {
+            padding: 10px 20px;
+            background-color: #1fb322;
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+      
+        .cards-section {
+            
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+                justify-content: space-around;
+                padding: 20px;
+                margin-left: 30px;
+                
+            }
+         
+        .card {
+    
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            margin-top:4px;
+        } 
+        
+
+            .card-section image {
+                width: 240px;
+                height: 200px;
+                object-fit: cover;
+                border: 1px solid #ccc;
+                border-radius: 8px;
+        }
+        
+         .card-content {
+            padding: 15px;
+        }
+        
+        .card h3 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        
+        .card p {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .card button {
+            background-color: #1fb322;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .card button:hover {
+            background-color: #159d1e;
+        }
+         
+
+        /* Call to Action Section */
+        .cta-section {
+            background-color: #1fb322;
+            padding: 20px;
+            text-align: center;
+            color: #ffffff;
+            font-size: 18px;
+        }
+
+        .cta-section a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Services Section */
+        .services-section {
+            padding: 40px 20px;
+            background-color: #ffffff;
+            text-align: center;
+        }
+
+        .services-section h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .services {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .service {
+            width: 220px;
+            text-align: center;
+        }
+
+        .service img {
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        .service h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #1fb322;
+        }
+
+        .service p {
+            font-size: 14px;
+            color: #777;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #333;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer .social-links a {
+            color: #ffffff;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        .footer p {
+            font-size: 14px;
+            color: #cccccc;
+        }
+        /* Footer Container */
+        .footer {
+          background-color: #3b5b3a; /* Deep green background */
+          color: white;
+          padding: 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          font-family: Arial, sans-serif;
+        }
+      
+        /* Left Section */
+        .footer .about {
+          max-width: 250px;
+        }
+      
+        .footer .about h3 {
+          margin-bottom: 10px;
+          font-size: 18px;
+        }
+      
+        .footer .about p {
+          font-size: 14px;
+          line-height: 1.6;
+          margin-bottom: 10px;
+        }
+      
+        /* Middle Section */
+        .footer .learn {
+          text-align: left;
+        }
+      
+        .footer .learn h3 {
+          margin-bottom: 10px;
+          font-size: 18px;
+        }
+      
+        .footer .learn a {
+          display: block;
+          color: white;
+          text-decoration: none;
+          font-size: 14px;
+          margin-bottom: 5px;
+        }
+      
+        /* Right Section */
+        .footer .social-media {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+        }
+      
+        .footer .social-media img {
+          width: 30px;
+          height: 30px;
+        }
+      
+        .footer .terms {
+          text-align: right;
+          margin-top: 10px;
+          font-size: 12px;
+        }
+      
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+          .footer {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+          .footer .terms {
+            text-align: left;
+          }
+        }
+    </style>
+</head>
+<body>
+      <!-- Header -->
+      <header class="header">
+        <div class="logo">
+            <h1>CARROT HUB</h1>
+        </div>
+        <nav>
+            <a href="{%url 'about'%}">About Us</a>
+            <div class="dropdown">
+                <a href="#">Search by District</a>
+                <div class="dropdown-content">
+                    <a href="#">Gasabo</a>
+                    <a href="#">Kicukiro</a>
+                    <a href="#">Nyarugenge</a>
+                    <a href="#">Bugesera</a>
+                    <a href="#">Gatsibo</a>
+                    <a href="#">Kayonza</a>
+                    <a href="#">Kirehe</a>
+                    <a href="#">Ngoma</a>
+                    <a href="#">Nyagatare</a>
+                    <a href="#">Rwamagana</a>
+                    <a href="#">Burera</a>
+                    <a href="#">Gakenke</a>
+                    <a href="#">Gicumbi</a>
+                    <a href="#">Musanze</a>
+                    <a href="#">Rulindo</a>
+                    <a href="#">Karongi</a>
+                    <a href="#">Ngororero</a>
+                    <a href="#">Nyabihu</a>
+                    <a href="#">Nyamasheke</a>
+                    <a href="#">Rubavu</a>
+                    <a href="#">Rusizi</a>
+                    <a href="#">Rutsiro</a>
+                    <a href="#">Gisagara</a>
+                    <a href="#">Huye</a>
+                    <a href="#">Kamonyi</a>
+                    <a href="#">Muhanga</a>
+                    <a href="#">Nyamagabe</a>
+                    <a href="#">Nyanza</a>
+                    <a href="#">Nyaruguru</a>
+                    <a href="#">Ruhango</a>
+                </div>
+            </div>
+            <a href="{%url 'contact'%}">Contact</a>
+            {% comment %} <a href="#">Learn</a> {% endcomment %}
+            <a href="{%url 'login-user'%}">Sign In</a>
+        </nav>
+    </header>
+<div></div>
+
+
+    <!-- Hero Section -->
+    <section class="hero">
+       
+        <h2>Discover the world of carrots like never before – find local farms on the map, learn best practices, meet dedicated farmers, and enjoy farm-fresh quality powered by smart technology.</h2>
+        <div class="search-bar">
+            <input type="text" placeholder="Search by Address"><br>
+            <button>Search by Map</button>
+        </div>
+   
+    </section>
+    <!-- Cards Section -->
+    <section class="cards-section">
+        {%for application in applications%}
+                        <div class="card">
+                            <img src="{{ application.farm_image.url }}" alt="Farm" />
+
+                            <div class="card-content">
+                                <h5>{{application.farm_size}}Acre  Estimated {{application.production}}T</h5>
+                                <h3>{{application.location}} RWANDA </h3>
+                                <p>{{application.first_name}}  {{application.last_name}}</p>
+                                <button>Contact Farmer</button>
+                            </div>
+                          
+                        </div>
+                        {%endfor%}
+                        </section>
+        </div>
+        <!-- Add more cards as needed -->
+   
+
+    <!-- Call to Action Section -->
+    <section class="cta-section">
+        <p><a href="tel:+250781484407">+250781484407</a></p>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section">
+        <h2>Our Services</h2>
+        <div class="services">
+            <div class="service">
+                <img src="path/to/service-icon1.png" alt="Service Icon">
+                <h3>Training</h3>
+                <p>training and educating farmers,
+                    Entrepreneurs, agribusness and
+                    startups is the core service
+                    of carrot farming.</p>
+            </div>
+            <div class="service">
+                <img src="path/to/service-icon2.png" alt="Service Icon">
+                <h3>Advisory</h3>
+                <p>Helping farmer on how to prepare 
+                    their farms and  daily follow up
+                    of carrot farms and
+                    helping farmers to get 
+                    market.</p>
+            </div>
+            <div class="service">
+                <img src="path/to/service-icon3.png" alt="Service Icon">
+                <h3>Business Development</h3>
+                <p>Understand the clients
+                    requirements and providing
+                    profitable business strategy
+                    which customized support
+                    and the best practices.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <!-- Footer Content -->
+<div class="footer">
+    <!-- About Section -->
+    <div class="about">
+      <h3>About Us</h3>
+      <p>We're in the business of protective cultivation Training and consultancy. We work every day to share and use our knowledge in ways that are beneficial to people, society, and our planet – to create a better tomorrow</p>
+      <p>@Carrot hub 2024</p>
+    </div>
+  
+    <!-- Learn Section -->
+    <div class="learn">
+      <h3>Learn</h3>
+      <a href="#">.Training</a>
+      <a href="#">.eBook</a>
+      <a href="#">.Project Report</a>
+    </div>
+  
+    <!-- Social Media Section -->
+    <div class="social-media">
+      <a href="#"><i class="fa fa-youtube"></i></a>
+      <a href="#"><i class="fa fa-facebook"></i></a>
+      <a href="#"><i class="fa fa-linkedin"></i></a>
+      <a href="#"><i class="fa fa-instagram"></i></a>
+    </div>
+  
+    <!-- Terms Section -->
+    <div class="terms">
+      <p>Terms and services</p>
+    </div>
+  </div>
+
+</body>
+</html>
+{%endblock content%}
+

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarrotHub Login</title>
+    <style>
+
+
+*{
+    font-size: 17px;
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    font-family: Outfit, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f7f7f7;
+}
+
+:root{
+    --green: #6BBF27;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.left {
+    flex: 2;
+    background-color: var(--green);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 2rem;
+}
+
+.logo{
+    flex: 1;
+} 
+.logo a{
+    color: white;
+    text-decoration: none;
+}
+.menu{
+    flex: 4;
+    padding-top: 7rem;
+}
+
+.left .logo h1 {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+}
+
+.left .menu h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    
+}
+
+.first{
+    margin-left: 7rem;
+    line-height: 20px;
+    margin-bottom: 3rem;
+}
+.second{
+    margin-left: 11rem;
+    line-height: 20px;
+    margin-bottom: 3rem;
+}
+.third{
+    margin-left: 15rem;
+    line-height: 20px;
+}
+
+.left .menu p {
+    
+    font-size: 0.9rem;
+    line-height: 1.5;
+    
+}
+
+.left .menu a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.right {
+    flex: 3;
+    background-color: white;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 6rem;
+}
+.welcome{
+    margin-bottom: 2.5rem;
+}
+
+.right .welcome h1 {
+    color: var(--green);
+    margin-bottom: 0.5rem;
+    font-size: 45px;
+}
+
+.right .welcome p {
+    margin-bottom: 0.5rem;
+}
+
+.right .welcome .admin-link {
+    color: var(--green);
+    text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.login-form {
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-group {
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.forgot-password {
+    display: block;
+    margin: 0.5rem 0 1rem;
+    font-size: 1rem;
+    color: var(--green);
+    text-decoration: none;
+    float: right;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: var(--green);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.signup {
+    margin: 1rem 0;
+    font-size: 1rem;
+}
+
+.signup a {
+    color: var(--green);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.change-password {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--green);
+    text-decoration: none;
+    margin-top: 1rem;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <div class="logo">
+                <a href=""><h1>CARROT HUB</h1></a>
+            </div>
+            <div class="menu">
+                <div class="first">
+                    <h2>Member verification</h2>
+                    <p>Check if you already have an account</p>
+                </div>
+                <div class="second">
+                    <h2>Log In</h2>
+                    <p>Enter your email</p>
+                </div>
+                <div class="third">
+                    <h2>Password</h2>
+                    <p>Enter your password</p>
+                </div>
+                
+            </div>
+        </div>
+        <div class="right">
+            <div class="welcome">
+                <h1>Welcome!</h1>
+                <p>Log in to CarrotHub</p>
+                <a href="{%url 'login-user'%}" class="admin-link">Log in as a Farmer</a>
+            </div>
+            <form class="login-form" method="post" action="">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <a href="#" class="forgot-password">Forgot password?</a>
+                <button type="submit" class="btn-login">Log in</button>
+            </form>
+            {% if error %}
+            <p style="color: red;">{{ error }}</p>
+            {% endif %}
+    </div>
+</body>
+</html>
