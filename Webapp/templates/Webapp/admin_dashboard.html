@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carot Hub Dashboard</title>
+  <!-- <link rel="stylesheet" href="admin_dashboard.css"> -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+    
+    body {
+      display: grid;
+      grid-template-columns: 20rem 5fr;
+      background-color: #f8f9fa;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      min-height: 100vh;
+      
+    }
+    
+    .second2{
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      column-gap: 0;
+    }
+    .sidebar {
+      width: 100%;
+      height: 70%;
+      background-color: #ffffff;
+      border-right: 1px solid #c9c9c9;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .sidebar a,
+    .users {
+      text-decoration: none;
+      color: #333;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      width: 100%;
+      height: 100%;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 20px;
+      flex: 1;
+      border: 1px solid #dddddd;
+    }
+    
+    .sidebar a.active {
+      font-weight: bold;
+      color: #6BBf27;
+    }
+    
+    .sidebar a:hover,
+    .users:hover {
+      color: #6BBf27;
+    }
+    
+    .sidebar span{
+      margin: 0 25px;
+    }
+    
+    .sidebar h2{
+      height: 100%;
+      width: 100%;
+      flex: 2;
+      display: flex;
+      justify-content: center;
+      padding-top: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .main-content {
+      width: 100%;
+      padding: 20px;
+    }
+    
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      height: 80px;
+    }
+    
+    .header h1 {
+      font-size: 24px;
+      color: #333;
+      margin-right: 15px;
+    }
+    
+    .header span{
+      color: #6BBf27;
+    }
+    .schedules{
+      display: flex;
+      align-items: center;
+      margin-left: 20px;
+    }
+    
+    .stats {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .stat-box {
+      background: #fff;
+      padding: 20px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      text-align: center;
+      flex: 1;
+      box-shadow: 5px 5px 10px #e0e0e0;
+    }
+    
+    .stat-box p{
+      color: rgb(116, 116, 116);
+    }
+    
+    .stat-box h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    
+    .chart-section {
+      margin-bottom: 30px;
+      background-color: #fff;
+      height: 300px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .chart-placeholder {
+      color: #999;
+      font-size: 16px;
+    }
+    
+    .popular-districts {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+    
+    .district {
+      flex: 1;
+      background: #fff;
+      padding: 15px;
+      margin: 0 5px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+    }
+    
+    .schedule-requests {
+      background: #fff;
+      padding: 20px;
+      border: 1px solid #e0e0e0;
+    }
+    
+    .request-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 10px;
+    }
+    
+    .request-item:last-child {
+      border-bottom: none;
+    }
+    
+    .btns{
+      display: flex;
+      gap: 10px;
+      border-radius:50px;
+    }
+    
+    .btns a {
+      text-decoration: none;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      border-radius:50px;
+      height:40px;
+    }
+    
+    .approve {
+      background-color: #6BBf27;
+      color: #fff;
+    }
+    
+    .decline {
+      background-color: #f14668;
+      color: #fff;
+    }
+    
+    .btns a:hover {
+      opacity: 0.8;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 30%;
+      }
+    
+      .main-content {
+        width: 70%;
+      }
+    
+      .stats {
+        flex-direction: column;
+      }
+    
+      .popular-districts {
+        flex-direction: column;
+      }
+    }
+    
+    
+    
+    .request-item{
+      background-color: rgb(233, 233, 233);
+      display: grid;
+      row-gap: 10px;
+      padding: 10px;
+      border-radius: 8px;
+    }
+    
+    
+    /* .users{
+      background-color: rgb(39, 140, 255);
+    }
+    .rejected{
+      background-color: red;
+    }
+    
+    .detected{
+      background-color: rgb(208, 226, 45);
+    }
+    .total-farms{
+      background-color: #6BBf27;
+    } */
+    
+    
+    .profile{
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #6BBf27;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      font-weight: bold;
+      color:white;
+    }
+    
+    .address{
+      
+      font-size: 13px;
+    }
+    .upper{
+      display: grid;
+      grid-template-columns: 30px 3fr 3fr;
+      column-gap: 20px;
+    }
+    .lower{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .prof{
+      display: flex;
+      align-items: center;
+    
+    }
+    .notif{
+      margin-right: 40px;
+      font-size: 20px;
+      position: relative
+    }
+    .notif span{
+      position: absolute;
+      bottom: 13px;
+      left: 12px;
+      background: green;
+      color: white;
+      font-size: 15px;
+      border-radius: 50%;
+      width: 15px;
+      height: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .schedule-date span, 
+    .farm-scale span,
+    .address span{
+      color: rgb(109, 109, 109);
+      font-size: 12px;
+    }
+    .accept{
+      background-color: #6BBf27;
+      border-radius: 20px;
+      font-weight: bold;
+      color:black;
+    }
+    .decline{
+      border-radius: 20px;
+      background-color: red;
+      font-weight: bold;
+    }
+    
+    
+    .addView{
+      position: absolute;
+      top: 50px;
+      right: 20px;
+      padding: 10px;
+      border: 1px solid rgb(226, 226, 226);
+      background-color: whitesmoke;
+      display: none;
+    
+    }
+    .users{
+      position: relative;
+      cursor: pointer;
+    }
+    
+    .addView a{
+      padding: 10px 100px;
+      margin: 5px;
+    
+    }
+    
+    
+    .users:hover .addView{ 
+      display: block;
+    }
+    
+    .addView a:hover{
+      background-color: rgb(226, 226, 226);
+    }
+  </style>
+</head>
+<body>
+    <div class="first">
+        <div class="sidebar">
+            <h2>VegetableHub</h2>
+            <a href="#" class="active"><span>&#x1F6E0;</span>Dashboard</a>
+            <a href="{%url 'home'%}"><span>&#x1F3E0;</span>Home</a>
+            <a href="{%url 'add-profile'%}"><span>&#x1F464;</span>Profile</a>
+            <div class="users" href="#"><span>&#x1F4E4;</span>Users
+              <div class="addView">
+                <a href="{%url 'add-user'%}">Add</a>
+                <a href="{%url 'view-user'%}">View</a>
+              </div>
+            </div>
+            <a href="{%url 'view-member'%}"><span>&#x1F4E4;</span>Requests</a>
+            <a href="{%url 'view-history'%}"><span>&#x1F4C6;</span>History</a>
+            <a href="{% url 'login-admin'%}" style="color: #f14668; padding-left: 40%;">Logout</a>
+        </div>
+    </div>
+
+
+    <div class="second">
+        <div class="header">
+            <div class="schedules">
+                <h1>Schedule</h1>
+                <span>{{applications.count}} new</span>
+            </div>
+            <div class="prof">
+              <div class="notif">&#x1F514; <span>{{applications.count}}</span></div>
+                    <div class="upper">
+                        <div class="profile">
+                          {{ user.username.upper|slice:":1" }}
+                        </div>
+                        <div class="address">
+                            <strong>{{user.username}}</strong> <br>
+                            <span>Admin</span>
+                        </div>
+                      </div>
+            </div>
+            
+        </div>
+        <div class="second2">
+            <div class="main-content">
+                
+            
+                <div class="stats">
+                  <div class="stat-box users">
+                    <p>Users</p>
+                    <h2>120</h2>
+                  </div>
+                  <div class="stat-box total-farms">
+                    <p>Total Farms</p>
+                    <h2>120</h2>
+                  </div>
+                  <div class="stat-box detected">
+                    <p>Detected Issues</p>
+                    <h2>10</h2>
+                  </div>
+                  <div class="stat-box rejected">
+                    <p>Rejected</p>
+                    <h2>15</h2>
+                  </div>
+                </div>
+            
+                <div class="chart-section">
+                  <p class="chart-placeholder">Production Report Graph Placeholder</p>
+                </div>
+            
+                <div class="popular-districts">
+                  <div class="district">
+                    <h3>Musanze</h3>
+                    <div style="height: 10px; background: #6BBf27; width: 80%;"></div>
+                  </div>
+                  <div class="district">
+                    <h3>Rusizi</h3>
+                    <div style="height: 10px; background: #6BBf27; width: 60%;"></div>
+                  </div>
+                  <div class="district">
+                    <h3>Rwamagana</h3>
+                    <div style="height: 10px; background: #6BBf27; width: 40%;"></div>
+                  </div>
+                </div>
+
+            </div>
+
+            
+            <div class="schedule-requests">
+                <h1>Schedule Requests</h1>
+                {% for application in applications %}
+                <div class="request-item">
+                    <div class="upper">
+                        <div class="profile">
+                          {{ application.first_name|slice:":1" }}
+                        </div>
+                        <div class="address">
+                            <strong>{{ application.first_name }} {{ application.last_name }}</strong> <br>
+                            <span>{{ application.location }}</span>
+                        </div>
+                        <div class="btns">
+                          <a href="{% url 'update_status' application.application_id 'Approved' %}" class="accept">Accept</a>
+                          <a href="{% url 'update_status' application.application_id 'Rejected' %}" class="decline">Decline</a>
+                        </div>
+                    </div>
+                    <div class="lower">
+                        <div class="farm-scale">
+                            <span>Farm scale</span> <br>
+                            <strong>{{ application.farm_size }} km<sup>2</sup></strong>
+                        </div>
+                        <div class="schedule-date">
+                            <span>Schhedule date</span> <br>
+                            <strong>1{{ application.created_at|date:"d M Y" }}</strong>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No schedule requests available.</p>
+                {% endfor %}
+                    
+              </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+

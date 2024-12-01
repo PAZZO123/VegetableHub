@@ -1,0 +1,153 @@
+{% extends "Webapp/header.html" %}
+{%block content%}
+{%load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Carrot Hub</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Section */
+        .header {
+            background-color: #6BBF27;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .header .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+
+        .header a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .header a:hover {
+            text-decoration: underline;
+        }
+
+        /* About Us Section */
+        .about-section {
+            background-color: white;
+            margin: 20px auto;
+            padding: 30px 20px;
+            border-radius: 10px;
+            width: 80%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .about-section h2 {
+            font-size: 20px;
+            color: #1fb322;
+            margin-bottom: 10px;
+        }
+
+        .about-section h3 {
+            color: #6BBF27;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .about-section p {
+            font-size: 16px;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .about-section img {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 700px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #416425;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+
+        .footer p {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <h1>CARROT HUB</h1>
+        </div>
+        <nav>
+            <a href="{%url 'home'%}">Home</a>
+        </nav>
+    </header>
+
+    <!-- About Us Section -->
+    <section class="about-section">
+        <h2>ABOUT US</h2>
+        <h3>CARROT HUB</h3>
+        <p>
+            Welcome to Carrot Hub, the ultimate platform designed to support the entire lifecycle of carrot farming and management.
+            We're committed to empowering farmers, distributors, and retailers with cutting-edge tools and insights that streamline the
+            process from farm to market. At Carrot Hub, we blend technology with agriculture, helping you to monitor growth, manage
+            inventory, and track distribution in real-time.
+        </p>
+        <p>
+            Our mission is to create a more efficient, sustainable carrot supply chain, ensuring quality, reducing waste, and increasing
+            productivity for all stakeholders. Whether you’re a small-scale farmer or a large distributor, Carrot Hub has the resources
+            and expertise to support your goals and enhance every aspect of carrot management.
+        </p>
+        <img src="{% static "Webapp/images/th2.jpeg" %}" alt="Carrot Farm">
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© Carrot Hub 2024</p>
+    </footer>
+
+</body>
+</html>
+
+{%endblock content%}
