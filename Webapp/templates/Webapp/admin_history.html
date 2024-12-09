@@ -370,19 +370,18 @@ button:hover {
 }
 
 
-.hist{
-
+.history-section{
   display: grid;
   grid-template-columns: 1fr 1fr;
-  column-gap: 60px;
+
+  column-gap: 30px;
   row-gap: 20px;
-  width: 80%;
+  width: 100%;
   padding: 10px;
 }
 .history{
   box-shadow: 5px 5px 10px rgb(220, 220, 220);
   padding: 10px;
-
 }
 
 .above,
@@ -432,14 +431,14 @@ button:hover {
   display: none; /* Hide all sections by default */
 }
 
-{% comment %} .history-section.active {
+.history-section.active {
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 60px;
   row-gap: 20px;
   width: 80%;
   padding: 10px;
-} {% endcomment %}
+} 
 
   </style>
 </head>
@@ -519,7 +518,7 @@ button:hover {
           <button id="btn-rejected" onclick="showSection('Rejected', this)">Rejected</button>
         </div>
     
-        <div class="hist">
+
           <div id="Approved"  class="history-section" style="display: none;">
             {%for application in applications%}
             {%if application.status == 'Processed'%}

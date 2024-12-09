@@ -13,6 +13,8 @@ class Farmer(models.Model):
     location = models.CharField(max_length=255)
     user=models.ForeignKey(User, on_delete=models.CASCADE, related_name='farmers')
     Vegetable_type=models.CharField(max_length=20, default='Carrot')
+    def __str__(self):
+            return f"{self.first_name} {self.last_name} ({self.email})" 
 
 
 
@@ -25,6 +27,8 @@ class Farm(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE, related_name='farm')
     Vegetable_type=models.CharField(max_length=20, default='Carrot')
     farm_image=models.ImageField(null=True,default="th1.jpeg")
+    def __str__(self):
+            return f"{self.farm_name} located at {self.gps_coordinates}"
 
 class Application(models.Model):
     application_id = models.AutoField(primary_key=True)

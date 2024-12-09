@@ -10,7 +10,7 @@ urlpatterns = [
      path('login-admin/',views.loginAdmin,name='login-admin'),
      path('app-person/',views.application_personal,name='app-person'),
      path('app-farm/',views.application_farm,name='app-farm'),
-     path('user/',views.userPage,name='user'),
+     path('user/<str:pk>/',views.userPage,name='user'),
      path('app-success/',views.application_success,name='app-success'),
      path('admins/',views.adminDashboard,name='admins'),
      path('update-status/<int:application_id>/<str:status>/', views.update_status, name='update_status'),
@@ -19,9 +19,14 @@ urlpatterns = [
      path('view-user/', views.adminView , name='view-user'),
      path('view-history/', views.adminHistory , name='view-history'),
      path('view-member/', views.adminRequest , name='view-member'),
-     path('delete/<str:pk>/', views.deletem, name='delete'),
+     path('delete/<int:pk>/', views.deletem, name='delete'),
      path('register_user/', views.register_user, name='register_user'),
-     path('add-profile', views.adminProfile, name='add-profile'),
-     path('fetch-admin', views.fetch_users, name='fetch-admin'),
+     path('add-profile/', views.adminProfile, name='add-profile'),
+     path('fetch-admin/', views.fetch_users, name='fetch-admin'),
+     path('help/', views.Help, name='help'),
+     path('changep/', views.Changepassowrd, name='changep'),
+     path('view_profile', views.ViewUserprofile, name='view_profile'),
+     path('contactf', views.ContactFarmer, name='contactf'),
+     
 
 ]

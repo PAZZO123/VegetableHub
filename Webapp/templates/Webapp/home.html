@@ -177,16 +177,17 @@
             margin-bottom: 10px;
         }
         
-        .card button {
+        .card a {
             background-color: #1fb322;
             color: white;
             padding: 8px 15px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            text-decoration: none;
         }
         
-        .card button:hover {
+        .card a:hover {
             background-color: #159d1e;
         }
          
@@ -349,7 +350,7 @@
         <nav>
             <a href="{%url 'about'%}">About Us</a>
             <div class="dropdown">
-                <a href="#">Search by District</a>
+                {% comment %} <a href="#">Search by District</a> {% endcomment %}
                 <div class="dropdown-content">
                     <a href="#">Gasabo</a>
                     <a href="#">Kicukiro</a>
@@ -411,7 +412,7 @@
                                 <h5>{{application.farm_size}}Acre  Estimated {{application.production}}T</h5>
                                 <h3>{{application.location}} RWANDA </h3>
                                 <p>{{application.first_name}}  {{application.last_name}}</p>
-                                <button>Contact Farmer</button>
+                                <a href="{%url 'contactf'%}">Contact Farmer</a>
                             </div>
                           
                         </div>

@@ -1,232 +1,482 @@
-{%block content%}
 {%load static%}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrot Hub Dashboard</title>
-    <style>
-        /* Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VegetableHub</title>
+  <!-- <link rel="stylesheet" href="user_dashboard.css"> -->
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f8f8;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            width: 250px;
-            background-color: #ffffff;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            border-right: 1px solid #ddd;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-        }
-
-        .sidebar .logo {
-            display: flex;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .sidebar .logo img {
-            height: 40px;
-            margin-right: 10px;
-        }
-
-        .sidebar h1 {
-            font-size: 18px;
-            color: #1fb322;
-            font-weight: bold;
-        }
-
-        .sidebar ul {
-            list-style: none;
-            margin-top: 20px;
-        }
-
-        .sidebar ul li {
-            margin: 15px 0;
-        }
-
-        .sidebar ul li a {
-            text-decoration: none;
-            color: #333;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-        }
-
-        .sidebar ul li a:hover {
-            color: #1fb322;
-        }
-
-        .sidebar ul li a .icon {
-            margin-right: 10px;
-        }
-
-        .sidebar ul li a.logout {
-            color: red;
-        }
-
-        /* Main Content */
-        .main-content {
-            margin-left: 250px;
-            padding: 20px;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .header .greeting {
-            font-size: 18px;
-        }
-
-        .header .user-info {
-            display: flex;
-            align-items: center;
-        }
-
-        .header .user-info span {
-            margin-left: 10px;
-            font-weight: bold;
-        }
-
-        .content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .card {
-            background: url({% static "Webapp/images/th4.jpeg" %})no-repeat center center;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            flex: 1;
-            min-width: 200px;
-            text-align: center;
-            color:white;
-        }
+body {
+  display: grid;
+  grid-template-columns: 20rem 5fr;
+  background-color: #f8f9fa;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  min-height: 100vh;
+}
 
 
-        .button-group {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin: 20px 0;
-        }
+.sidebar {
+  width: 100%;
+  height: 70%;
+  background-color: #ffffff;
+  
+  border-right: 1px solid #c9c9c9;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 
-        .button-group button {
-            background-color: #6BBF27;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+.sidebar a,
+.users {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 20px;
+  flex: 1;
+  border: 1px solid #dddddd;
+}
 
-        .button-group button:hover {
-            background-color: #17a71a;
-        }
+.sidebar a.active {
+  font-weight: bold;
+  color: #6BBf27;
+}
 
-        /* Map Section */
-        .map {
-            margin-top: 20px;
-            width: 100%;
-            height: 400px;
-            background: url({% static "Webapp/images/dow.png" %}) no-repeat center center;
-            background-size: cover;
-            border-radius: 10px;
-        }
+.sidebar a:hover,
+.users:hover {
+  color: #6BBf27;
+}
 
-        .footer {
-            text-align: center;
-            margin-top: 10px;
-            font-size: 14px;
-            color: #333;
-        }
-    </style>
+.sidebar span{
+  margin: 0 25px;
+}
+
+.sidebar h2{
+  height: 100%;
+  width: 100%;
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+  margin-bottom: 30px;
+}
+
+.main-content {
+  width: 100%;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  height: 80px;
+}
+
+.header h1 {
+  font-size: 22px;
+}
+
+.schedules p{
+  color: gray;
+  margin-left: 110px;
+  margin-top: 7px;
+}
+
+
+.schedules{
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  flex-direction: column;
+  justify-content: start;
+  padding-top: 10px;
+}
+.container{
+  width: 95%;
+  margin: 90px auto;
+}
+
+
+.letter{
+  background-color: #e9ffd6;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 10px;
+  margin-top: 5px;
+  color: #6BBf27;
+}
+
+
+.col{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 10px rgb(207, 207, 207);
+  border-left: 1px solid rgb(223, 223, 223);
+  border-top: 1px solid rgb(223, 223, 223);
+  margin-bottom: 10px;
+}
+.names{
+  display: flex;
+}
+
+.col div span:not(.letter){
+  color: gray;
+  font-size: 14px;
+}
+
+.schedule-requests {
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+}
+
+.request-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 10px;
+}
+
+.request-item:last-child {
+  border-bottom: none;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+
+
+
+
+button:hover {
+  opacity: 0.8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 30%;
+  }
+
+  .main-content {
+    width: 70%;
+  }
+
+  .stats {
+    flex-direction: column;
+  }
+
+  .popular-districts {
+    flex-direction: column;
+  }
+}
+
+
+
+.request-item{
+  background-color: rgb(233, 233, 233);
+  display: grid;
+  row-gap: 10px;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+
+/* .users{
+  background-color: rgb(39, 140, 255);
+}
+.rejected{
+  background-color: red;
+}
+
+.detected{
+  background-color: rgb(208, 226, 45);
+}
+.total-farms{
+  background-color: #6BBf27;
+} */
+
+
+.profile{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #6BBf27;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  color:white;
+}
+.address{
+  
+  font-size: 13px;
+}
+.upper{
+  display: grid;
+  grid-template-columns: 30px 3fr 3fr;
+  column-gap: 20px;
+}
+.lower{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.prof{
+  display: flex;
+  align-items: center;
+
+}
+.notif{
+  margin-right: 40px;
+  font-size: 20px;
+  position: relative
+}
+.notif span{
+  position: absolute;
+  bottom: 13px;
+  left: 12px;
+  background: green;
+  color: white;
+  font-size: 15px;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.schedule-date span, 
+.farm-scale span,
+.address span{
+  color: rgb(109, 109, 109);
+  font-size: 12px;
+}
+.approve{
+  background-color: #6BBf27;
+  border-radius: 20px;
+  color: whitesmoke;
+  font-weight: bold;
+}
+.delete{
+  border-radius: 15px;
+  background-color: red;
+  font-weight: bold;
+  color: whitesmoke;
+
+}
+
+
+
+.addView{
+  position: absolute;
+  top: 50px;
+  right: 20px;
+  padding: 10px;
+  border: 1px solid rgb(226, 226, 226);
+  background-color: whitesmoke;
+  display: none;
+
+}
+.users{
+  position: relative;
+  cursor: pointer;
+}
+
+.addView a{
+  padding: 10px 100px;
+  margin: 5px;
+
+}
+
+
+.users:hover .addView{ 
+  display: block;
+}
+
+.addView a:hover{
+  background-color: rgb(226, 226, 226);
+}
+
+.det{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 10px;
+}
+
+.heading{
+  display: flex;
+  column-gap: 10px;
+  margin-bottom: 10px;
+}
+.details{
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 40px;
+  row-gap: 20px;
+  flex: 1;
+  width: 100%;
+}
+
+.details button{
+  background-color: #5eaa20;
+  color: white;
+  border: none;
+  font-size: 18px;
+}
+.map{
+  width: 100%;
+  
+}
+.map img{
+  width: 100%;
+}
+.photo{
+  {%for farm in farms%}
+  background-image: url({{farm.farm_image.url  }});
+  {%endfor%}
+  height: 13rem;
+  width: 20rem;
+  padding: 30px 10px;
+  color: rgb(209, 209, 209);
+}
+.whole{
+  padding: 10px;
+}
+
+.dates{
+  display: flex;
+  margin-top: 40px;
+}
+.dates div{
+  flex: 1;
+  border-left: 4px solid rgb(107, 153, 167);
+  padding: 0 10px;
+  white-space: nowrap;
+}
+
+
+  </style>
 </head>
 <body>
-
-    <!-- Sidebar -->
-    <aside class="sidebar">
-        <div class="logo">
-            <img src="https://via.placeholder.com/40" alt="Carrot Hub Logo">
-            <h1>CARROT HUB</h1>
-        </div>
-        <ul>
-            <li><a href="#"><span class="icon">🏠</span>Dashboard</a></li>
-            <li><a href="#"><span class="icon">🏡</span>Home</a></li>
-            <li><a href="#"><span class="icon">👤</span>Profile</a></li>
-            <li><a href="#"><span class="icon">❓</span>Help center</a></li>
-            <li><a href="#" class="logout"><span class="icon">🚪</span>Logout</a></li>
-        </ul>
-    </aside>
-
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Header -->
-        <div class="header">
-            <div class="greeting">
-                Hi, Patrick<br>
-                <small>Today is Monday, 15 August 2025</small>
-            </div>
-            <div class="user-info">
-                <img src="https://via.placeholder.com/40" alt="User Avatar" style="border-radius: 50%; height: 40px;">
-                <span>Patrick</span>
-            </div>
-        </div>
-
-        <!-- Content -->
-        <div class="content">
-            <!-- Card -->
-            <div class="card">
-                
-                <p>Total areas</p>
-                <p><strong>11 Acres</strong></p>
-                <p>Planted & To Be Harvested</p>
-                <p><strong>24 May 2024</strong></p>
-            </div>
-
-            <!-- Soil Status Buttons -->
-            <div class="button-group">
-                <button>Soil Moisture Level</button>
-                <button>Smart Irrigation</button>
-                <button>Weather Conditions</button>
-                <button>Health Status</button>
-                <button>Real-time Alerts</button>
-                <button>Farm Comparison</button>
-                <button>Guides & Training</button>
-                <button>Related Courses</button>
-            </div>
-        </div>
-
-        <!-- Map -->
-        <div class="map"></div>
-
-        <!-- Footer -->
-        <div class="footer">
-            Harvesting Time On 24 May 2024
+    <div class="first">
+        <div class="sidebar">
+            <h2>VegetableHub</h2>
+            <a href="#" class="active"><span>&#x1F6E0;</span>Dashboard</a>
+            <a href="{%url 'home'%}"><span>&#x1F3E0;</span>Home</a>
+            <a href="{%url 'view_profile'%}"><span>&#x1F464;</span>Profile</a>
+            <a href="{%url 'help'%}"><span class="icon">❓</span>Help center</a>
+            <a href="{% url 'login-user'%}" style="color: #f14668; padding-left: 40%;">Logout</a>
         </div>
     </div>
 
+
+    <div class="second">
+        <div class="header">
+            <div class="schedules">
+              {%for  farmer in farmers%}
+                <h1>Dear , <span style="color: black;"> Client!</span></h1>
+                <p class="date">Today is {{ now|date:"l j F Y" }}</p>
+            </div>
+            <div class="prof">
+              <div class="notif">&#x1F514; <span>{{users.count}}</span></div>
+                    <div class="upper">
+                        <div class="profile">
+                      {{user.Names|slice:1}}
+                        </div>
+                        <div class="address">
+                          
+                            <strong>{{user.Names}}</strong> <br>
+                            <span>{{farmer.location}}</span>
+                        </div>
+                      </div>
+                      {%endfor%}
+            </div>
+            
+        </div>
+
+<div class="whole">
+  <div class="heading">
+    <div class="photo">
+      {%for farm in farms%}
+      <p>Total acres:</p>
+      <h2><span>{{ farm.area_size }} </span> acres</h2>
+      
+      <div class="dates">
+        <div class="harvested">
+          <p class="word">Gps Coordinates:</p>
+          <p><b>{{farm.gps_coordinates}}</b></p>
+          {%endfor %}
+        </div>
+        {%for farmer in farmers%}
+        <div class="planted">
+          <p class="word">Location:</p>
+          <p><b>{{farmer.location}}</b></p>
+          {%endfor%}
+        </div>
+        
+      </div>
+    </div>
+    <div class="det">
+      <h2>SOIL STATUS</h2>
+      <div class="details">
+        <button>Soil moisture level</button>
+        <button>Health status</button>
+        <button>Storage conditions</button>
+        <button>Smart irrigation</button>
+        <button>Real-time alerts</button>
+        <button>Farm comparison</button>
+        <button>Weather conditions</button>
+        <button>Related courses</button>
+        <button>Guides and training</button>
+      </div>
+    </div>
+    
+  </div>
+  <div class="map">
+    <img src="{% static "Webapp/images/map2.png" %}" alt="">
+  </div>
+
+
+
+</div>
+        
+
+
 </body>
 </html>
-{%endblock content%}
+
+
+

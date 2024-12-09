@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VegetableHub</title>
+  <!-- <link rel="stylesheet" href="contact_farmer.css"> -->
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body {
+  background-color: #f8f9fa;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  min-height: 100vh;
+}
+
+
+.second{
+  display: flex;
+}
+
+.photo{
+  height: 91vh;
+  width: 60rem;
+  background-color: red;
+  background-image: url(Carrots-01-500x335-1.jpg);
+  background-size: cover;
+}
+
+
+
+
+
+.card a:hover {
+  opacity: 0.8;
+
+
+}
+
+
+.header{
+  background-color: #6BBf27;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+
+li{
+
+  float: right;
+  margin: 0 10px;
+  list-style-type: none;
+  width: 100px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+
+li a{
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  padding: 10px 22px;
+  transition: font-size 1.35s;
+
+  
+}
+
+li a:hover{
+  font-size: 110%;
+  text-decoration: underline;
+}
+
+.heading{
+
+  margin-bottom: 20px;
+}
+.whole{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 20px;
+  font-size: 20px;
+  margin-top: 30px;
+
+}
+
+.value{
+  padding: 10px;
+  background-color: rgb(231, 238, 241);
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+
+.whole div{
+  margin-bottom: 20px;
+}
+.farmer_contact{
+  width: 60rem;
+  margin-left: 10rem;
+  margin-top: 10rem;
+}
+.edit{
+  display: flex;
+  align-items: center;
+
+}
+.edit p{
+  width: 25rem;
+}
+
+.info p{
+  width: 25rem;
+}
+.info-farm{
+  display: flex;
+  column-gap: 35px;
+}
+
+
+.left{
+  width: 10rem;
+}
+.right{
+  width: 10rem;
+}
+
+
+.left .value,
+.right .value{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.con .value{
+  flex: 2;
+}
+.con{
+  display: flex;
+  column-gap: 10px;
+}
+
+
+button{
+  cursor: pointer;
+}
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h2>VegetableHub</h2>
+    <ul>
+      <li> <a href="">Contact</a></li>
+      <li><a href="">Learn</a></li>
+      <li><a href="">About</a></li>
+      <li><a href="">Sign in</a></li>
+    </ul>
+  </div>
+    
+
+    <div class="second">
+      <div class="photo"></div>
+      <div class="farmer_contact">
+        <div class="heading">
+          
+          <h2>Contact <span>Farmer name</span></h2>
+
+        </div>
+
+        
+
+        <div class="whole">
+          <div class="personal">
+            <div class="info">
+              <p>Name</p>
+              <p class="value">MBABAZI Patrick Straton</p>
+            </div>
+           
+            <div class="info">
+              <p>Phone number</p>
+              <div class="edit">
+                <p class="value" id="value">+250 780 3764 657</p>
+              </div>
+            </div>
+            <div class="info">
+              <p>Email</p>
+              <div class="edit">
+                <p class="value" id="email">smbabazipatrick250@gmail.com</p> 
+              </div>
+              
+            </div>
+          </div>
+          <div class="farm">
+            <div class="info">
+              <p>Farm location</p>
+              <div class="edit">
+                <p class="value" id="location">KAYONZA</p>
+              </div>
+              
+            </div>
+
+            <div class="info-farm">
+              <div class="left">
+                <p>Latitude</p>
+                <p class="value"><span id="latitude">37.7749<sup>o</sup></span> <span>W</span></p>
+              </div>
+              <div class="right">
+                <p>Longitude</p>
+                <div class="con">
+                  <p class="value"><span id="longitude">37.7749<sup>o</sup></span> <span>N</span></p>
+                </div>
+              </div>
+              
+              
+            </div>
+            
+          </div>
+          
+        </div>
+        
+        
+      </div>       
+    </div>
+
+
+
+
+</body>
+</html>
+
+
+
