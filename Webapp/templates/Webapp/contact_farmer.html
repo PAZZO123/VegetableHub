@@ -26,9 +26,11 @@ body {
 
 .photo{
   height: 91vh;
-  width: 60rem;
+  width: 100rem;
   background-color: red;
-  background-image: url(Carrots-01-500x335-1.jpg);
+  {%for application in applications%}
+  background-image: url({{ application.farm_image.url }});
+  {%endfor%}
   background-size: cover;
 }
 
@@ -75,6 +77,9 @@ li a{
 
   
 }
+h2{
+  color:whitesmoke;
+}
 
 li a:hover{
   font-size: 110%;
@@ -84,6 +89,7 @@ li a:hover{
 .heading{
 
   margin-bottom: 20px;
+  color:white;
 }
 .whole{
   display: grid;
@@ -162,10 +168,9 @@ button{
   <div class="header">
     <h2>VegetableHub</h2>
     <ul>
-      <li> <a href="">Contact</a></li>
-      <li><a href="">Learn</a></li>
-      <li><a href="">About</a></li>
-      <li><a href="">Sign in</a></li>
+      <li> <a href="{%url 'home'%}">Home</a></li>
+      <li><a href="{%url 'about'%}">About</a></li>
+      <li><a href="{%url 'login-user'%}">Sign in</a></li>
     </ul>
   </div>
     
@@ -180,24 +185,24 @@ button{
         </div>
 
         
-
+{%for application in applications%}
         <div class="whole">
           <div class="personal">
             <div class="info">
-              <p>Name</p>
-              <p class="value">MBABAZI Patrick Straton</p>
+              <p>Names</p>
+              <p class="value">{{application.first_name}}{{application.last_name}}</p>
             </div>
            
             <div class="info">
               <p>Phone number</p>
               <div class="edit">
-                <p class="value" id="value">+250 780 3764 657</p>
+                <p class="value" id="value">{{application.telephone}}</p>
               </div>
             </div>
             <div class="info">
               <p>Email</p>
               <div class="edit">
-                <p class="value" id="email">smbabazipatrick250@gmail.com</p> 
+                <p class="value" id="email">{{application.email}}</p> 
               </div>
               
             </div>
@@ -206,7 +211,7 @@ button{
             <div class="info">
               <p>Farm location</p>
               <div class="edit">
-                <p class="value" id="location">KAYONZA</p>
+                <p class="value" id="location">{{application.location}}</p>
               </div>
               
             </div>
@@ -214,16 +219,16 @@ button{
             <div class="info-farm">
               <div class="left">
                 <p>Latitude</p>
-                <p class="value"><span id="latitude">37.7749<sup>o</sup></span> <span>W</span></p>
+                <p class="value"><span id="latitude">{{application.gps_coordinates}}<sup>o</sup></span> <span>W</span></p>
               </div>
               <div class="right">
                 <p>Longitude</p>
                 <div class="con">
-                  <p class="value"><span id="longitude">37.7749<sup>o</sup></span> <span>N</span></p>
+                  <p class="value"><span id="longitude">{{application.gps_coordinates}}<sup>o</sup></span> <span>N</span></p>
                 </div>
               </div>
               
-              
+              {%endfor%}
             </div>
             
           </div>

@@ -23,10 +23,10 @@ urlpatterns = [
      path('register_user/', views.register_user, name='register_user'),
      path('add-profile/', views.adminProfile, name='add-profile'),
      path('fetch-admin/', views.fetch_users, name='fetch-admin'),
-     path('help/', views.Help, name='help'),
+     path('help/<int:application_id>/', views.Help, name='help'),
      path('changep/', views.Changepassowrd, name='changep'),
-     path('view_profile', views.ViewUserprofile, name='view_profile'),
-     path('contactf', views.ContactFarmer, name='contactf'),
+     path('view_profile/<int:pk>/', views.ViewUserprofile, name='view_profile'),
+     path('contactf/<int:pk>/', views.ContactFarmer, name='contactf'),
      
 
 ]

@@ -396,8 +396,8 @@ button:hover {
             <h2>VegetableHub</h2>
             <a href="#" class="active"><span>&#x1F6E0;</span>Dashboard</a>
             <a href="{%url 'home'%}"><span>&#x1F3E0;</span>Home</a>
-            <a href="{%url 'view_profile'%}"><span>&#x1F464;</span>Profile</a>
-            <a href="{%url 'help'%}"><span class="icon">❓</span>Help center</a>
+            <a href="{%url 'view_profile' user.id%}"><span>&#x1F464;</span>Profile</a>
+            <a href="{%url 'help' user.id%}"><span class="icon">❓</span>Help center</a>
             <a href="{% url 'login-user'%}" style="color: #f14668; padding-left: 40%;">Logout</a>
         </div>
     </div>

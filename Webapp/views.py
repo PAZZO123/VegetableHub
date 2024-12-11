@@ -1,8 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User
 from django.db import transaction
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.timezone import now
@@ -71,12 +73,21 @@ def application_farm(request):
 
 
 def home(request):
-    applications = Application.objects.filter(status="Processed")  # Adjust filter as needed
+    query = request.GET.get('query', '')  # Get the search query from the request
+    if query:
+        # Filter applications based on location (case-insensitive)
+        applications = Application.objects.filter(location__icontains=query, status="Processed")
+    else:
+        # Default to showing the first 6 processed applications
+        applications = Application.objects.filter(status="Processed")[:6]
+
     context = {
-        "applications": applications
+        "applications": applications,  # Pass applications to the template
+        "query": query  # Pass the search query to keep it in the search box
     }
- 
-    return render(request,'Webapp/home.html',context)
+    
+    return render(request, 'Webapp/home.html', context)
+
 def contact(request):
     return render(request,'Webapp/contact.html',{})
 def about(request):
@@ -256,8 +267,22 @@ def fetch_users(request):
     users = User.objects.all()
     return render(request, 'Webapp/admin_profile.html', {'users': users})
 
-def Help(request):
-    return render(request ,'Webapp/help_line.html' )
+def Help(request,pk):
+    users=Register.objects.all()
+    user = get_object_or_404(Register, pk=pk)
+    
+ 
+     # Filter farmers whose email matches the logged-in user's email
+    farmers = Farmer.objects.filter(email=user.email)
+
+    # Filter farms associated with these farmers
+    farms = Farm.objects.filter(farmer__email=user.email)
+    context={'user':user,
+             'farmers':farmers,
+             'farms':farms,
+             'now': now(),
+             'users':users}
+    return render(request ,'Webapp/help_line.html',context )
 
 
 def Changepassowrd(request):
@@ -265,12 +290,29 @@ def Changepassowrd(request):
 
 
 def ViewUserprofile(request,pk):
-    users=Register.objects.get(id=pk)
-    return render(request ,'Webapp/user_profile.html',{'obj':users} )
+    users=Register.objects.all()
+    user = get_object_or_404(Register, pk=pk)
+    
+ 
+     # Filter farmers whose email matches the logged-in user's email
+    farmers = Farmer.objects.filter(email=user.email)
 
-
-def ContactFarmer(request):
-    return render(request ,'Webapp/contact_farmer.html' )
+    # Filter farms associated with these farmers
+    farms = Farm.objects.filter(farmer__email=user.email)
+    context={'user':user,
+             'farmers':farmers,
+             'farms':farms,
+             'now': now(),
+             'users':users}
+    return render(request ,'Webapp/user_profile.html',context )
+@login_required(login_url='login-user')
+def ContactFarmer(request,pk):
+    applications = Application.objects.filter(status="Processed",pk=pk) # Adjust filter as needed
+    context = {
+        "applications": applications
+    }
+   
+    return render(request ,'Webapp/contact_farmer.html',context )
 
  
  

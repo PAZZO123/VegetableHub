@@ -397,26 +397,38 @@
        
         <h2>Discover the world of carrots like never before – find local farms on the map, learn best practices, meet dedicated farmers, and enjoy farm-fresh quality powered by smart technology.</h2>
         <div class="search-bar">
-            <input type="text" placeholder="Search by Address"><br>
+            <form method="get" action="{% url 'home' %}">
+                <input 
+                    type="text" 
+                    name="query" 
+                    placeholder="Search by Location" 
+                    value="{{ query|default:'' }}"
+                >
+                <button type="submit">Search</button>
+            </form>
             <button>Search by Map</button>
         </div>
    
     </section>
     <!-- Cards Section -->
     <section class="cards-section">
-        {%for application in applications%}
-                        <div class="card">
-                            <img src="{{ application.farm_image.url }}" alt="Farm" />
-
-                            <div class="card-content">
-                                <h5>{{application.farm_size}}Acre  Estimated {{application.production}}T</h5>
-                                <h3>{{application.location}} RWANDA </h3>
-                                <p>{{application.first_name}}  {{application.last_name}}</p>
-                                <a href="{%url 'contactf'%}">Contact Farmer</a>
-                            </div>
-                          
+        
+            {% if applications %}
+                {% for application in applications %}
+                    <div class="card">
+                        <img src="{{ application.farm_image.url }}" alt="Farm">
+                        <div class="card-content">
+                            <h5>{{ application.farm_size }} Acre Estimated {{ application.production }}T</h5>
+                            <h3>{{ application.location }} RWANDA</h3>
+                            <p>{{ application.first_name }} {{ application.last_name }}</p>
+                            <a href="{% url 'contactf' application.application_id %}">Contact Farmer</a>
                         </div>
-                        {%endfor%}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No results found for "{{ query }}"</p>
+            {% endif %}
+        </section>
                         </section>
         </div>
         <!-- Add more cards as needed -->

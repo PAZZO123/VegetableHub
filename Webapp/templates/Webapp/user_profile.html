@@ -226,14 +226,17 @@ button:hover {
 } */
 
 
+
 .profile{
   width: 40px;
   height: 40px;
   border-radius: 50%;
   background-color: #6BBf27;
   align-items: center;
-
-
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  color:white;
 }
 .address{
   
@@ -467,12 +470,12 @@ button{
     <div class="first">
         <div class="sidebar">
             <h2>VegetableHub</h2>
-            <a href="{%url 'user' users.id%}"><span>&#x1F6E0;</span>Dashboard</a>
+            <a href="{%url 'user' user.id%}"><span>&#x1F6E0;</span>Dashboard</a>
             <a href="{% url 'home'%}"><span>&#x1F3E0;</span>Home</a>
-            <a href="{%url 'view_profile'%}" class="active"><span>&#x1F464;</span>Profile</a>
+            <a href="{%url 'view_profile' user.id%}" class="active"><span>&#x1F464;</span>Profile</a>
             
           
-            <a href="{%url 'help'%}"><span>&#x1F4E4;</span>Help line</a>
+            <a href="{%url 'help' user.id%}"><span>&#x1F4E4;</span>Help line</a>
             <a href="{%url 'login-user' %}" style="color: #f14668; padding-left: 40%;">Logout</a>
         </div>
     </div>
@@ -480,20 +483,24 @@ button{
 
     <div class="second">
         <div class="header">
+          
             <div class="schedules">
-                <h1>Hi , <span style="color: black;"> USER</span></h1>
-                <p class="date">Today is Monday 2 Dacember 2024</p>
+              <h1>Dear , <span style="color: black;"> Client!</span></h1>
+              <p class="date">Today is {{ now|date:"l j F Y" }}</p>
             </div>
             <div class="prof">
               <div class="notif">&#x1F514; <span>3</span></div>
                     <div class="upper">
-                        <div class="profile">
-
-                        </div>
-                        <div class="address">
-                            <strong>IRADUKUNDA Toussaint</strong> <br>
-                            <span>MUSANZE</span>
-                        </div>
+                      <div class="profile">
+                        {{user.Names|slice:1}}
+                          </div>
+                          <div class="address">
+                            
+                              <strong>{{user.Names}}</strong> <br>
+                              {%for farmer in farmers%}
+                              <span>{{farmer.location}}</span>
+                            {%endfor%}
+                          </div>
                       </div>
             </div>
             
@@ -506,7 +513,7 @@ button{
               <span class="fir"></span>
               <span class="sec"></span>
             </div>
-            <h2>USER profile</h2>
+            <h2>{{user.Names}}</h2>
 
           </div>
 
@@ -516,31 +523,37 @@ button{
             <div class="personal">
               <div class="info">
                 <p>Name</p>
-                <p class="value">MBABAZI Patrick Straton</p>
+                <p class="value">{{user.Names}}</p>
               </div>
               <div class="info">
-                <p>ID number</p>
-                <p class="value">1200280124801065</p>
+                <p>Email</p>
+                <p class="value">{{user.email}}</p>
               </div>
               <div class="info">
                 <p>Phone number</p>
                 <div class="edit">
-                  <p class="value" id="value">+250 780 3764 657</p><button id="edit_phone">Edit</button>
+                  <p class="value" id="value">{{user.phone}}</p>
+                  {% comment %} <button id="edit_phone">Edit</button> {% endcomment %}
                 </div>
               </div>
               <div class="info">
-                <p>Email</p>
+                {%for  farmer in farmers%}
+                <p>Location</p>
                 <div class="edit">
-                  <p class="value" id="email">smbabazipatrick250@gmail.com</p> <button id="edit_email">Edit</button>
+                  <p class="value" id="email">{{farmer.location}}</p> 
+                  {% comment %} <button id="edit_email">Edit</button> {% endcomment %}
                 </div>
                 
               </div>
             </div>
+            {%endfor%}
+            {%for farm in farms%}
             <div class="farm">
               <div class="info">
-                <p>Farm location</p>
+                <p>Product</p>
                 <div class="edit">
-                  <p class="value" id="location">KAYONZA</p> <button id="edit_location">Edit</button>
+                  <p class="value" id="location">{{farm.Vegetable_type}}</p> 
+                  {% comment %} <button id="edit_location">Edit</button> {% endcomment %}
                 </div>
                 
               </div>
@@ -548,15 +561,16 @@ button{
               <div class="info-farm">
                 <div class="left">
                   <p>Farm length</p>
-                  <p class="value"><span id="km2">120</span> <span>KM<sup>2</sup></span></p>
+                  <p class="value"><span id="km2">{{farm.area_size}}</span> <span>KM<sup>2</sup></span></p>
                 </div>
                 <div class="right">
                   <p>Production/ Season</p>
                   <div class="con">
-                    <p class="value"><span id="kg">100</span> <span>KG</span></p><button id="edit_farm_size">Edit</button>
+                    <p class="value"><span id="kg">{{farm.area_size}}</span> <span>KG</span></p>
+                    {% comment %} <button id="edit_farm_size">Edit</button> {% endcomment %}
                   </div>
                 </div>
-                
+                {%endfor%}
                 
               </div>
               
@@ -566,7 +580,7 @@ button{
           
           
         </div>
-        <button class="update">Update</button>
+        {% comment %} <button class="update">Update</button> {% endcomment %}
    
 
         

@@ -189,14 +189,17 @@ button:hover {
 } */
 
 
+
 .profile{
   width: 40px;
   height: 40px;
   border-radius: 50%;
   background-color: #6BBf27;
   align-items: center;
-
-
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  color:white;
 }
 .address{
   
@@ -285,10 +288,10 @@ button{
             <h2>VegetableHub</h2>
             <a href="{%url 'user' user.id%}"><span>&#x1F6E0;</span>Dashboard</a>
             <a href="{%url 'home'%}"><span>&#x1F3E0;</span>Home</a>
-            <a href="{%url 'view_profile'%}"><span>&#x1F464;</span>Profile</a>
+            <a href="{%url 'view_profile' user.id%}"><span>&#x1F464;</span>Profile</a>
             
           
-            <a href="{%url 'help'%}" class="active"><span>&#x1F4E4;</span>Help line</a>
+            <a href="{%url 'help' user.id%}" class="active"><span>&#x1F4E4;</span>Help line</a>
             <a href="{%url 'login-user'%}" style="color: #f14668; padding-left: 40%;">Logout</a>
         </div>
     </div>
@@ -297,18 +300,20 @@ button{
     <div class="second">
         <div class="header">
             <div class="schedules">
-                <h1>Hi , <span style="color: black;"> USER</span></h1>
-                <p class="date">Today is Monday 2 Dacember 2024</p>
+              <h1>Dear , <span style="color: black;"> Client!</span></h1>
+              <p class="date">Today is {{ now|date:"l j F Y" }}</p>
             </div>
             <div class="prof">
               <div class="notif">&#x1F514; <span>3</span></div>
                     <div class="upper">
                         <div class="profile">
-
+                        {{user.Names|slice:1}}
                         </div>
                         <div class="address">
-                            <strong>IRADUKUNDA Toussaint</strong> <br>
-                            <span>MUSANZE</span>
+                            <strong>{{user.Names}}</strong> <br>
+                            {%for farmer in farmers%}
+                            <span>{{farmer.location}}</span>
+                            {%endfor%}
                         </div>
                       </div>
             </div>
@@ -335,7 +340,7 @@ button{
 
             </div>
 
-            <p class="office">Or visit our office at University of Rwanda, Nyarugenge campus, College o Science and Technology(CST) in facebook hostel room 43.</p>
+            <p class="office">Or visit our office at University of Rwanda, Nyarugenge campus, College o Science and Technology(CST) </p>
             
           </div>
           
