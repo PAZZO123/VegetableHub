@@ -16,6 +16,10 @@
             box-sizing: border-box;
         }
 
+        html{
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: Outfit, sans-serif;
             color: #333;
@@ -24,7 +28,7 @@
        
         /* Header */
         .header {
-            background-color: #1fb322;
+            background-color: transparent;
             color: white;
             padding: 10px 20px;
             display: flex;
@@ -92,44 +96,36 @@
         }
         /* Hero Section */
         .hero {
-            background-image: url({% static "Webapp/images/bg.jpeg" %}); /* Add path to your image */
+            background-image: url({% static "Webapp/images/carrots-bg.jpg" %}); /* Add path to your image */
             background-size: cover;
             background-position: center;
             text-align: center;
-            padding: 100px 20px;
+            padding: 20px;
             color: #ffffff;
             position: relative;
+            height: 100vh;
+            margin-bottom: 20px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
 
         .hero h2 {
-            font-size: 24px;
+            font-size: 45px;
             margin-bottom: 10px;
+            width: 70%%;
+            font-weight: 200;
+            text-align: left;
+            margin: 10rem 0;
         }
 
         .search-bar {
             margin-top: 20px;
         }
 
-        .search-bar input[type="text"] {
-            padding: 10px;
-            width: 350px;
-            border: none;
-            border-radius: 14px;
-            margin-right: 10px;
-            border: 2px solid white;
-            background-color:transparent;
-        }
+        
         input::placeholder {
             color: white;
           }
-        .search-bar button {
-            padding: 10px 20px;
-            background-color: #1fb322;
-            color: #ffffff;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-        }
+        
 
       
         .cards-section {
@@ -214,9 +210,10 @@
             text-align: center;
         }
 
-        .services-section h2 {
+        .services-section h1 {
             font-size: 24px;
             margin-bottom: 20px;
+            color: green;
         }
 
         .services {
@@ -224,11 +221,17 @@
             flex-wrap: wrap;
             gap: 20px;
             justify-content: center;
+            padding: 30px;
         }
 
         .service {
-            width: 220px;
+            
             text-align: center;
+            flex: 1;
+            box-shadow: 5px 5px 30px rgb(200, 200, 200);
+            border-radius: 20px;
+            padding: 20px;
+            font-size: 20px;
         }
 
         .service img {
@@ -243,8 +246,11 @@
         }
 
         .service p {
-            font-size: 14px;
-            color: #777;
+            font-size: 16px;
+            color: rgb(70, 70, 70);
+            text-align: left;
+            margin-top: 30px;
+            line-height: 26px;
         }
 
         /* Footer */
@@ -339,77 +345,231 @@
             text-align: left;
           }
         }
+
+        .search-btn{
+            padding: 10px 20px;
+            border: none;
+            background-color: transparent;
+            border-left: 1px solid white;
+            cursor: pointer;
+            border-radius: 0 20px 20px 0;
+        }
+        .search-icon{
+            width: 20px;
+            margin-left: 0;
+        }
+        .search-field{
+            margin-right: 0;
+            border: none;
+            outline: none;
+            width: 350px;
+            {% comment %} margin-right: 10px; {% endcomment %}
+            
+            background-color:transparent;
+            border-radius: 20px;
+            padding-left: 30px;
+            color: white;
+        }
+        .search-bar form{
+            width: 25rem;
+            display: flex;
+            justify-content: center;
+            margin: 20px auto;
+            border-radius: 20px;
+            border: 1px solid white;
+            
+        }
+        .search-by-map{
+            padding: 10px 20px;
+            border: none;
+            background-color: #1fb322;
+            border-radius: 10px;
+            cursor: pointer;
+            color: white;
+        }
+
+
+        .footer {
+            position: relative;
+            width: 100%;
+            background: green;
+            min-height: 100px;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+          }
+          
+          .social-icon,
+          .menu {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 0;
+            flex-wrap: wrap;
+          }
+          
+          .social-icon__item,
+          .menu__item {
+            list-style: none;
+          }
+          
+          .social-icon__link {
+            font-size: 2rem;
+            color: #fff;
+            margin: 0 10px;
+            display: inline-block;
+            transition: 0.5s;
+          }
+          .social-icon__link:hover {
+            transform: translateY(-10px);
+          }
+          
+          .menu__link {
+            font-size: 1.2rem;
+            color: #fff;
+            margin: 0 10px;
+            display: inline-block;
+            transition: 0.5s;
+            text-decoration: none;
+            opacity: 0.75;
+            font-weight: 300;
+          }
+          
+          .menu__link:hover {
+            opacity: 1;
+          }
+          
+          .footer p {
+            color: #fff;
+            margin: 15px 0 10px 0;
+            font-size: 1rem;
+            font-weight: 300;
+          }
+
+
+          .about{
+            padding: 20px;
+            text-align: center;
+            line-height: 26px;
+          }
+          
+
+
+          hr{
+           border: none;
+            padding: 40px;
+            border-top: 10px dotted rgb(200, 200, 200);
+            width: 30rem;
+            margin: 30px auto;
+          }
+
+          .contact{
+            height: 100vh;
+          }
+          .heroo{
+            background-image: url({% static "Webapp/images/cucumber-plant.jpg" %});
+            background-possition: cover;
+            height: 40vh;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-size: 40px;
+          }
+
+          .contact-section{
+            display: flex;
+            column-gap: 20px;
+            row-gap: 20px;
+            flex-wrap: wrap;
+            width: 80%;
+            margin: 40px auto;
+          }
+          .contact-card{
+            flex: 1;
+           
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            row-gap: 5px;
+            padding: 20px;
+            font-size: 20px;
+            box-shadow: 5px 5px 30px rgb(210, 210, 210);
+            color: green;
+          }
+          .contact-card img{
+            width: 40px;
+          }
+          #contact h1{
+            color: green;
+            margin: 30px 0;
+            text-align: center;
+          }
+
+          .about h1{
+            color: green;
+            margin: 30px;
+            text-align: center;
+          }
+          .about{
+            width: 70%;
+            margin: 30px auto;
+            font-size: 20px;
+            text-align: left;
+          }
+          .about p{
+            margin: 20px;
+            line-height: 35px;
+          }
+          em{
+            color: rgb(150, 150, 150);
+          }
+
+
     </style>
 </head>
 <body>
       <!-- Header -->
-      <header class="header">
-        <div class="logo">
-            <h1>CARROT HUB</h1>
-        </div>
-        <nav>
-            <a href="{%url 'about'%}">About Us</a>
-            <div class="dropdown">
-                {% comment %} <a href="#">Search by District</a> {% endcomment %}
-                <div class="dropdown-content">
-                    <a href="#">Gasabo</a>
-                    <a href="#">Kicukiro</a>
-                    <a href="#">Nyarugenge</a>
-                    <a href="#">Bugesera</a>
-                    <a href="#">Gatsibo</a>
-                    <a href="#">Kayonza</a>
-                    <a href="#">Kirehe</a>
-                    <a href="#">Ngoma</a>
-                    <a href="#">Nyagatare</a>
-                    <a href="#">Rwamagana</a>
-                    <a href="#">Burera</a>
-                    <a href="#">Gakenke</a>
-                    <a href="#">Gicumbi</a>
-                    <a href="#">Musanze</a>
-                    <a href="#">Rulindo</a>
-                    <a href="#">Karongi</a>
-                    <a href="#">Ngororero</a>
-                    <a href="#">Nyabihu</a>
-                    <a href="#">Nyamasheke</a>
-                    <a href="#">Rubavu</a>
-                    <a href="#">Rusizi</a>
-                    <a href="#">Rutsiro</a>
-                    <a href="#">Gisagara</a>
-                    <a href="#">Huye</a>
-                    <a href="#">Kamonyi</a>
-                    <a href="#">Muhanga</a>
-                    <a href="#">Nyamagabe</a>
-                    <a href="#">Nyanza</a>
-                    <a href="#">Nyaruguru</a>
-                    <a href="#">Ruhango</a>
-                </div>
-            </div>
-            <a href="{%url 'contact'%}">Contact</a>
-            {% comment %} <a href="#">Learn</a> {% endcomment %}
-            <a href="{%url 'login-user'%}">Sign In</a>
-        </nav>
-    </header>
+
 <div></div>
 
 
     <!-- Hero Section -->
-    <section class="hero">
-       
-        <h2>Discover the world of carrots like never before – find local farms on the map, learn best practices, meet dedicated farmers, and enjoy farm-fresh quality powered by smart technology.</h2>
+    <section class="hero" id="home">
+        <header class="header">
+            <div class="logo">
+                <h1>VegetableHub</h1>
+            </div>
+            <nav>
+                <a href="#about-us">About Us</a>
+                <a href="#contact">Contact</a>
+                <a href="#services">Services</a>
+                {% comment %} <a href="#">Learn</a> {% endcomment %}
+                <a href="{%url 'login-user'%}">Sign In</a>
+            </nav>
+        </header>
+        <h2>Discover VegetableHub: Mapping farms, spotlighting farmers, and growing knowledge for a sustainable future.</h2>
         <div class="search-bar">
             <form method="get" action="{% url 'home' %}">
-                <input 
+                <input class="search-field"
                     type="text" 
                     name="query" 
                     placeholder="Search by Location" 
                     value="{{ query|default:'' }}"
                 >
-                <button type="submit">Search</button>
+                <button class="search-btn" type="submit"><img class="search-icon" src="{% static "Webapp/images/search-interface-symbol.png" %}" alt="Search button"></button>
             </form>
-            <button>Search by Map</button>
+            <button id="searchByMap" class="search-by-map">Search by Map</button>
         </div>
    
     </section>
+
+   
     <!-- Cards Section -->
     <section class="cards-section">
         
@@ -435,75 +595,117 @@
    
 
     <!-- Call to Action Section -->
-    <section class="cta-section">
-        <p><a href="tel:+250781484407">+250781484407</a></p>
-    </section>
-
+    <hr>
     <!-- Services Section -->
-    <section class="services-section">
-        <h2>Our Services</h2>
+    <section class="services-section" id="services">
+        <h1>Our Services</h1>
         <div class="services">
             <div class="service">
-                <img src="path/to/service-icon1.png" alt="Service Icon">
+                <img src="{% static "Webapp/images/training.png" %}" alt="Service Icon">
                 <h3>Training</h3>
-                <p>training and educating farmers,
-                    Entrepreneurs, agribusness and
-                    startups is the core service
-                    of carrot farming.</p>
+                <p><b>"Master Vegetable Cultivation with Our Training"</b>
+                    Our training programs offer essential skills in vegetable care and cultivation, covering soil preparation, planting, pest management, and harvesting. Whether you're a beginner or enhancing your expertise, we’ll help you grow with confidence!</p>
             </div>
             <div class="service">
-                <img src="path/to/service-icon2.png" alt="Service Icon">
+                <img src="{% static "Webapp/images/advisory.png" %}" alt="Service Icon">
                 <h3>Advisory</h3>
-                <p>Helping farmer on how to prepare 
-                    their farms and  daily follow up
-                    of carrot farms and
-                    helping farmers to get 
-                    market.</p>
+                <p><b>"Expert Guidance for Your Business"</b>
+                    We offer tailored advisory services to help businesses overcome challenges and achieve goals. From strategy and operations to financial planning, we provide solutions for measurable success.</p>
             </div>
             <div class="service">
-                <img src="path/to/service-icon3.png" alt="Service Icon">
+                <img src="{% static "Webapp/images/business-development.png" %}" alt="Service Icon">
                 <h3>Business Development</h3>
-                <p>Understand the clients
-                    requirements and providing
-                    profitable business strategy
-                    which customized support
-                    and the best practices.</p>
+                <p><b>"Boost Your Business Growth"</b>
+                    Our business development training equips you with strategies to identify opportunities, build partnerships, and drive success. Whether you're starting or scaling your business, we provide practical tools and insights for sustainable growth.</p>
             </div>
         </div>
+    </section>
+    <hr>
+
+
+    <section id="contact">
+        <h1>Contact VegetableHub</h1>
+        <div class="heroo">
+            <h4>Contact Us Today and See What We Can Do For You</h4>
+            <h4>Do not even hestitate to cotact us in case </h4>
+            <h4>you need any help we are here for you! </h4>
+        </div>
+    
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <div class="contact-card">
+                <img src="{% static "Webapp/images/phone-call.png" %}" alt="Phone Icon">
+                <h3>Phone</h3>
+                <p>+250781484407</p>
+            </div>
+            <div class="contact-card">
+                <img src="{% static "Webapp/images/mail.png" %}" alt="Email Icon">
+                <h3>Email</h3>
+                <p>carrothub@gmail.co</p>
+            </div>
+            <div class="contact-card">
+                <img src="{% static "Webapp/images/location.png" %}" alt="Location Icon">
+                <h3>Head Office</h3>
+                <p>KICUKIRO, Gatenga KK253ST</p>
+            </div>
+        </div>
+    </section>
+    <hr>
+    <section id="about-us" class="about">
+        <h1>About VegetableHub</h1>
+
+        <p>At VegetableHub, we’re on a mission to transform the way people connect with agriculture. By mapping vegetable farms, we bring visibility to the hardworking farmers who nurture the food we enjoy every day. Our platform shines a spotlight on their stories while fostering a deeper appreciation for fresh, locally-grown produce.
+
+            But we don’t stop there—VegetableHub is also a hub for education, offering valuable insights into vegetable care, plantation techniques, and sustainable farming practices. Whether you’re a farmer, a learner, or simply passionate about agriculture, we’re here to help you grow.
+            
+            Together, let’s cultivate a future where vegetables thrive, communities connect, and farmers are celebrated.</p>
+
+            <p>Our mission is to create a more efficient, sustainable carrot supply chain, ensuring quality, reducing waste, and increasing productivity for all stakeholders. Whether you’re a small-scale farmer or a large distributor, Carrot Hub has the resources and expertise to support your goals and enhance every aspect of carrot management.</p>
+
+            <center><em>Growing Connections, Empowering Farmers, and Cultivating Knowledge</em></center>
     </section>
 
     <!-- Footer -->
     <!-- Footer Content -->
-<div class="footer">
-    <!-- About Section -->
-    <div class="about">
-      <h3>About Us</h3>
-      <p>We're in the business of protective cultivation Training and consultancy. We work every day to share and use our knowledge in ways that are beneficial to people, society, and our planet – to create a better tomorrow</p>
-      <p>@Carrot hub 2024</p>
-    </div>
-  
-    <!-- Learn Section -->
-    <div class="learn">
-      <h3>Learn</h3>
-      <a href="#">.Training</a>
-      <a href="#">.eBook</a>
-      <a href="#">.Project Report</a>
-    </div>
-  
-    <!-- Social Media Section -->
-    <div class="social-media">
-      <a href="#"><i class="fa fa-youtube"></i></a>
-      <a href="#"><i class="fa fa-facebook"></i></a>
-      <a href="#"><i class="fa fa-linkedin"></i></a>
-      <a href="#"><i class="fa fa-instagram"></i></a>
-    </div>
-  
-    <!-- Terms Section -->
-    <div class="terms">
-      <p>Terms and services</p>
-    </div>
-  </div>
-
+    <footer class="footer">
+        
+        <ul class="social-icon">
+          <li class="social-icon__item"><a class="social-icon__link" href="#">
+            <i class="fa fa-facebook-f"></i>
+            </a></li>
+          <li class="social-icon__item"><a class="social-icon__link" href="#">
+            <i class="fa fa-twitter"></i>
+            </a></li>
+          <li class="social-icon__item"><a class="social-icon__link" href="#">
+            <i class="fa fa-linkedin"></i>
+            </a></li>
+          <li class="social-icon__item"><a class="social-icon__link" href="#">
+            <i class="fa fa-instagram"></i>
+            </a></li>
+        </ul>
+        <ul class="menu">
+          <li class="menu__item"><a class="menu__link" href="#home">Home</a></li>
+          <li class="menu__item"><a class="menu__link" href="#about">About</a></li>
+          <li class="menu__item"><a class="menu__link" href="#services">Services</a></li>
+          <li class="menu__item"><a class="menu__link" href="#">Team</a></li>
+          <li class="menu__item"><a class="menu__link" href="#contact">Contact</a></li>
+    
+        </ul>
+        <p>&copy;2024 VegetableHub | All Rights Reserved</p>
+      </footer>
+      <script>
+        document.getElementById('searchByMap').addEventListener('click', function () {
+            // Get the value of the search input
+            const query = document.querySelector('input[name="query"]').value.trim();
+            
+            // Redirect to Google Maps with the query
+            const googleMapsUrl = query 
+                ? `https://www.google.com/maps/search/${encodeURIComponent(query)}/`
+                : `https://www.google.com/maps`;
+            
+            window.open(googleMapsUrl, '_blank'); // Open in a new tab
+        });
+    </script>
 </body>
 </html>
 {%endblock content%}

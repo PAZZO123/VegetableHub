@@ -11,12 +11,12 @@ class FarmerAdmin(admin.ModelAdmin):
 
 @admin.register(Farm)
 class FarmAdmin(admin.ModelAdmin):
-    list_display = ('farm_id', 'farm_name', 'gps_coordinates', 'area_size', 'farmer', 'user','user','Vegetable_type','farm_image')
+    list_display = ('farm_id', 'farm_name', 'latitude','longitude', 'area_size', 'farmer', 'user','Vegetable_type','farm_image')
 
 @admin.register(Application)
 class ApplicationAdmin(admin.ModelAdmin):
     list_display = ('application_id', 'first_name', 'last_name', 'telephone', 'email', 
-                    'location', 'gps_coordinates', 'farm_size', 'description', 
+                    'location', 'latitude','longitude', 'farm_size', 'description', 
                     'growth_stage', 'status', 'production', 'created_at','farm_image','user','Vegetable_type')
 
 @admin.register(Vegatable_Practice)

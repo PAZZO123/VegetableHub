@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import check_password, make_password
 from django.contrib.auth.models import User
 from django.db import transaction
 from django.db.models import Q
@@ -10,7 +10,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.timezone import now
 from Webapp.models import Application, Farm, Farmer
 
-from .forms import FarmInfoForm, PersonalInfoForm
+from .forms import (FarmerUpdateForm, FarmInfoForm, FarmUpdateForm,
+                    PersonalInfoForm, UserUpdateForm)
 from .models import Application, Register
 
 
@@ -30,7 +31,8 @@ def process_approved_applications(request):
 
             farm = Farm.objects.create(
                 farm_name=f"{farmer.first_name}'s Farm",
-                gps_coordinates=application.gps_coordinates or "Not Provided",
+                latitude=application.latitude or "Not Provided",
+                longitude=application.longitude or "Not Provided",
                 area_size=application.farm_size,
                 farmer=farmer,
                 user=application.user,
@@ -285,26 +287,106 @@ def Help(request,pk):
     return render(request ,'Webapp/help_line.html',context )
 
 
-def Changepassowrd(request):
-    return render(request ,'Webapp/change_password.html' )
-
-
-def ViewUserprofile(request,pk):
-    users=Register.objects.all()
+def ChangePassowrd(request, pk):
+    # Fetch the user and related data
     user = get_object_or_404(Register, pk=pk)
-    
- 
-     # Filter farmers whose email matches the logged-in user's email
     farmers = Farmer.objects.filter(email=user.email)
-
-    # Filter farms associated with these farmers
     farms = Farm.objects.filter(farmer__email=user.email)
-    context={'user':user,
-             'farmers':farmers,
-             'farms':farms,
-             'now': now(),
-             'users':users}
-    return render(request ,'Webapp/user_profile.html',context )
+    users = Register.objects.all()
+
+    context = {
+        'user': user,
+        'farmers': farmers,
+        'farms': farms,
+        'now': now(),
+        'users': users,
+    }
+
+    if request.method == 'POST':
+        current_password = request.POST.get('current_password')
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+
+        # Check if the current password is correct
+        if not check_password(current_password, user.password):
+            messages.error(request, "Current password is incorrect.")
+            return render(request, 'Webapp/change_password.html', context)
+
+        # Check if the new password matches the confirmation
+        if new_password != confirm_password:
+            messages.error(request, "New password and confirmation do not match.")
+            return render(request, 'Webapp/change_password.html', context)
+
+        # Update the user's password
+        user.password = make_password(new_password)
+        user.save()
+        messages.success(request, "Password changed successfully!")
+        return render(request, 'Webapp/change_password.html', context)
+
+    # Render the form for GET requests
+    return render(request, 'Webapp/change_password.html', context)
+
+
+def ViewUserprofile(request, pk):
+    # Fetch the user from the Register model
+    user = get_object_or_404(Register, pk=pk)
+
+    # Get all users, farmers, and farms associated with the current user
+    users = Register.objects.all()
+    farmers = Farmer.objects.filter(email=user.email)
+    farms = Farm.objects.filter(farmer__email=user.email)
+
+    if request.method == 'POST':
+        # Create forms for Register, Farmer, and Farm models
+        user_form = UserUpdateForm(request.POST, instance=user)
+        farmer_forms = [FarmerUpdateForm(request.POST, instance=farmer) for farmer in farmers]
+        farm_forms = [FarmUpdateForm(request.POST, instance=farm) for farm in farms]
+
+        # Validate all forms
+        if (
+            user_form.is_valid() and
+            all(farmer_form.is_valid() for farmer_form in farmer_forms) and
+            all(farm_form.is_valid() for farm_form in farm_forms)
+        ):
+            # Save updated user info
+            user_form.save()
+
+            # Update all farmers with the same email as the user
+            for farmer_form in farmer_forms:
+                farmer_form.save()
+
+            # Update all farms associated with the farmers
+            for farm_form in farm_forms:
+                farm_form.save()
+
+            # Show a success message and redirect to the profile page
+            messages.success(request, "Profile updated successfully.")
+            return redirect('user', pk=user.pk)
+        else:
+            # Show an error message if any of the forms are invalid
+            messages.error(request, "Failed to update profile. Please check your input.")
+
+    else:
+        # Initialize forms with current user, farmer, and farm data
+        user_form = UserUpdateForm(instance=user)
+        farmer_forms = [FarmerUpdateForm(instance=farmer) for farmer in farmers]
+        farm_forms = [FarmUpdateForm(instance=farm) for farm in farms]
+
+    # Pass forms and other context data to the template
+    context = {
+        'user': user,
+        'users': users,
+        'farmers': farmers,
+        'farms': farms,
+        'now': now(),
+        'user_form': user_form,
+        'farmer_forms': farmer_forms,
+        'farm_forms': farm_forms,
+    }
+
+    return render(request, 'Webapp/user_profile.html', context)
+
+
 @login_required(login_url='login-user')
 def ContactFarmer(request,pk):
     applications = Application.objects.filter(status="Processed",pk=pk) # Adjust filter as needed

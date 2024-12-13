@@ -21,14 +21,20 @@ class Farmer(models.Model):
 class Farm(models.Model):
     farm_id = models.AutoField(primary_key=True)
     farm_name = models.CharField(max_length=255)
-    gps_coordinates = models.CharField(max_length=255)
+    latitude = models.FloatField(default=-1.9441)  # Default to Kigali latitude
+    longitude = models.FloatField(default=30.0619)  # Default to Kigali longitude
     area_size = models.FloatField()
     farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE, related_name='farms')
     user=models.ForeignKey(User, on_delete=models.CASCADE, related_name='farm')
     Vegetable_type=models.CharField(max_length=20, default='Carrot')
     farm_image=models.ImageField(null=True,default="th1.jpeg")
     def __str__(self):
-            return f"{self.farm_name} located at {self.gps_coordinates}"
+        return f"{self.farm_name} {self.area_size} - {self.Vegetable_type} (Lat: {self.latitude}, Long: {self.longitude})"
+
+from django.contrib.auth.models import User
+from django.core.validators import EmailValidator, RegexValidator
+from django.db import models
+
 
 class Application(models.Model):
     application_id = models.AutoField(primary_key=True)
@@ -40,19 +46,21 @@ class Application(models.Model):
     )
     email = models.EmailField(validators=[EmailValidator()])
     location = models.CharField(max_length=255)
-    gps_coordinates = models.CharField(max_length=255, null=True, blank=True)
+    latitude = models.FloatField(default=-1.9441)  # Default to Kigali latitude
+    longitude = models.FloatField(default=30.0619)  # Default to Kigali longitude
     farm_size = models.FloatField()
     description = models.TextField()
     growth_stage = models.CharField(max_length=30)
     status = models.CharField(max_length=20, default='Pending')
     production = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)  # Automatically set on creation
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    Vegetable_type=models.CharField(max_length=20, default='Carrot')
-    farm_image=models.ImageField(null=True,default="th1.jpeg")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True,default="Mbabazi")
+    Vegetable_type = models.CharField(max_length=20, default='Carrot')
+    farm_image = models.ImageField(null=True, default="th1.jpeg")
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} - {self.status}"
+
 
     
 
@@ -141,12 +149,13 @@ class Register(models.Model):
         validators=[RegexValidator(r'^\+?\d{10,15}$', message="Enter a valid phone number.")]
        )
      password = models.CharField(max_length=128)  # Store hashed password
-
-     def save(self, *args, **kwargs):
-        # Ensure the password is hashed before saving
+def save(self, *args, **kwargs):
+    # Hash only if the password is not already hashed
+    if not self.password.startswith('pbkdf2_'):
         self.password = make_password(self.password)
-        super().save(*args, **kwargs)
+    super().save(*args, **kwargs)
 
+    
 
 # class Vegetable(models.Model):
 #      vegetable_id= models.AutoField(primary_key=True)

@@ -367,6 +367,7 @@ button:hover {
   justify-content: center;
   text-align: center;
   margin-bottom: 20px;
+  height:600px;
 }
 .whole{
   display: grid;
@@ -395,52 +396,16 @@ button:hover {
   width: 60rem;
   margin-left: 10rem;
 }
-.edit{
-  display: flex;
-  align-items: center;
 
-}
-.edit p{
-  width: 25rem;
-}
-.edit button{
-  padding: 15px 12px 16px;
-  color: #6BBf27;
-  border: none;
-  margin-left: 3px;
-  height: 100%;
-  border-radius: 5px;
-  font-size: 18px;
-}
 .info p{
   width: 25rem;
 }
-.info-farm{
-  display: flex;
-  column-gap: 35px;
-}
 
-
-.left{
-  flex: 1;
-}
 .right{
   flex: 2;
 }
 
 
-.left .value,
-.right .value{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.info-farm button{
-  flex: 2;
-  font-size: 18px;
-  color: #6BBf27;
-  border: none;
-}
 .con .value{
   flex: 2;
 }
@@ -459,9 +424,60 @@ button:hover {
   font-size: 18px;
   width: 25rem;
   margin-left: 20%;
+  text-decoration:none;
 }
 button{
   cursor: pointer;
+}
+.info input[type="text"], 
+.info input[type="email"] {
+    display: flex;
+    width: 100%;
+}
+
+/* Rwandan flag emoji next to the phone input */
+.info-phone {
+    display: flex;
+    align-items: center;
+}
+
+.info-phone .value {
+    flex: 1;
+}
+
+.info-phone .flag {
+    margin-left: 8px;
+    font-size: 20px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+    .admin_profile {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .profile_photo {
+        margin-right: 10px;
+    }
+
+    .heading {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile_photo {
+        margin-bottom: 10px;
+    }
+
+    .info p {
+        font-size: 12px;
+    }
+}
+form{
+  justify-content:center;
+  width:400px;
+  margin-left:250px;
 }
 
   </style>
@@ -473,7 +489,8 @@ button{
             <a href="{%url 'user' user.id%}"><span>&#x1F6E0;</span>Dashboard</a>
             <a href="{% url 'home'%}"><span>&#x1F3E0;</span>Home</a>
             <a href="{%url 'view_profile' user.id%}" class="active"><span>&#x1F464;</span>Profile</a>
-            
+           
+            <a href="{%url 'changep' user.id %}" ><span>&#x1F512;</span>Change Password</a>
           
             <a href="{%url 'help' user.id%}"><span>&#x1F4E4;</span>Help line</a>
             <a href="{%url 'login-user' %}" style="color: #f14668; padding-left: 40%;">Logout</a>
@@ -513,77 +530,43 @@ button{
               <span class="fir"></span>
               <span class="sec"></span>
             </div>
-            <h2>{{user.Names}}</h2>
-
-          </div>
-
-          
-
-          <div class="whole">
-            <div class="personal">
+            <form method="POST" action="">
+              {% csrf_token %}
               <div class="info">
                 <p>Name</p>
-                <p class="value">{{user.Names}}</p>
+                <input type="text" name="Names" value="{{ user.Names }}" class="value">
               </div>
               <div class="info">
                 <p>Email</p>
-                <p class="value">{{user.email}}</p>
+                <input type="email" name="email" value="{{ user.email }}" class="value">
               </div>
               <div class="info">
                 <p>Phone number</p>
-                <div class="edit">
-                  <p class="value" id="value">{{user.phone}}</p>
-                  {% comment %} <button id="edit_phone">Edit</button> {% endcomment %}
-                </div>
+                <input type="text" name="phone" value="{{ user.phone }}" class="value">
               </div>
+              {% for farmer in farmers %}
               <div class="info">
-                {%for  farmer in farmers%}
                 <p>Location</p>
-                <div class="edit">
-                  <p class="value" id="email">{{farmer.location}}</p> 
-                  {% comment %} <button id="edit_email">Edit</button> {% endcomment %}
-                </div>
-                
+                <input type="text" name="location" value="{{ farmer.location }}" class="value">
               </div>
-            </div>
-            {%endfor%}
-            {%for farm in farms%}
-            <div class="farm">
+              {% endfor %}
+              {% for farm in farms %}
               <div class="info">
                 <p>Product</p>
-                <div class="edit">
-                  <p class="value" id="location">{{farm.Vegetable_type}}</p> 
-                  {% comment %} <button id="edit_location">Edit</button> {% endcomment %}
-                </div>
-                
+                <input type="text" name="Vegetable_type" value="{{ farm.Vegetable_type }}" class="value">
+                <p>Farm length</p>
+                <input type="text" name="area_size" value="{{ farm.area_size }}" class="value">
               </div>
-  
               <div class="info-farm">
                 <div class="left">
-                  <p>Farm length</p>
-                  <p class="value"><span id="km2">{{farm.area_size}}</span> <span>KM<sup>2</sup></span></p>
+                 
                 </div>
-                <div class="right">
-                  <p>Production/ Season</p>
-                  <div class="con">
-                    <p class="value"><span id="kg">{{farm.area_size}}</span> <span>KG</span></p>
-                    {% comment %} <button id="edit_farm_size">Edit</button> {% endcomment %}
-                  </div>
-                </div>
-                {%endfor%}
-                
               </div>
-              
-            </div>
-            
+              {% endfor %}
+              <button type="submit" class="update">Update</button>
+            </form>
           </div>
-          
-          
-        </div>
-        {% comment %} <button class="update">Update</button> {% endcomment %}
-   
-
-        
+       
                     
               
     </div>
