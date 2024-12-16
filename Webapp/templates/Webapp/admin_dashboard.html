@@ -400,13 +400,13 @@
                 
             
                 <div class="stats">
-                  <div class="stat-box users">
+                  <div class="stat-box ">
                     <p>Users</p>
-                    <h2>120</h2>
+                    <h2>{{Users}}</h2>
                   </div>
                   <div class="stat-box total-farms">
                     <p>Total Farms</p>
-                    <h2>120</h2>
+                    <h2>{{Farms}}</h2>
                   </div>
                   <div class="stat-box detected">
                     <p>Detected Issues</p>
@@ -414,7 +414,7 @@
                   </div>
                   <div class="stat-box rejected">
                     <p>Rejected</p>
-                    <h2>15</h2>
+                    <h2>{{rejected_count}}</h2>
                   </div>
                 </div>
             
@@ -449,7 +449,7 @@
                           {{ application.first_name|slice:":1" }}
                         </div>
                         <div class="address">
-                            <strong>{{ application.first_name }} {{ application.last_name }}</strong> <br>
+                            <strong>{{ application.first_name }}   {{ application.last_name }}</strong> <br>
                             <span>{{ application.location }}</span>
                         </div>
                         <div class="btns">

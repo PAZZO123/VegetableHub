@@ -24,7 +24,7 @@ body {
 
 .sidebar {
   width: 100%;
-  height: 70%;
+  height: 35rem;
   background-color: #ffffff;
   
   border-right: 1px solid #c9c9c9;
@@ -52,7 +52,8 @@ body {
 
 .sidebar a.active {
   font-weight: bold;
-  color: #6BBf27;
+  color: white;
+  background-color: #6BBf27;
 }
 
 .sidebar a:hover,
@@ -294,6 +295,7 @@ button:hover {
 
 
 
+
 .addView{
   position: absolute;
   top: 50px;
@@ -440,6 +442,12 @@ button:hover {
   padding: 10px;
 } 
 
+.div:active{
+  color: white;
+  background-color: #6BBf27;
+}
+
+
   </style>
 </head>
 <body>
@@ -557,7 +565,7 @@ button:hover {
     <div class="above">
       <div class="name">
         <span>Name</span>
-        <b>{{application.first_name}}{{application.last_name}}</b>
+        <b>{{application.first_name}}   {{application.last_name}}</b>
       </div>
       <div class="status">Rejected</div>
     </div>
@@ -590,7 +598,7 @@ button:hover {
   <div class="above">
   <div class="name">
     <span>Name</span>
-    <b>{{application.first_name}}{{application.last_name}}</b>
+    <b>{{application.first_name}}  {{application.last_name}}</b>
   </div>
   <div class="status">{{application.status}}</div>
   </div>
@@ -632,10 +640,11 @@ button:hover {
     
         // Reset all buttons' colors
         const buttons = document.querySelectorAll('.classified button');
-        buttons.forEach(btn => (btn.style.color = 'black'));
+        buttons.forEach(btn => (btn.style.backgroundColor = 'white'));
     
         // Highlight the clicked button
-        button.style.color = '#6BBf27';
+        button.style.backgroundColor = '#6BBf27';
+        button.style.color = "black"
       }
     
       // Automatically click the 'All' button on page load

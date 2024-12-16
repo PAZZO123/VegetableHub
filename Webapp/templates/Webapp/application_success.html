@@ -1,2 +1,226 @@
-<h1>Application Submitted</h1>
-<p>{{ message }}</p>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarrotHub Farm Information</title>
+    <style>
+        /* File: styles.css */
+:root{
+    --green: #6BBF27;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Outfit, sans-serif;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+.num{
+    border-radius: 50%;
+    background-color: #91ff37;
+    padding: 5px 9px;
+    font-size: 15px;
+    margin-right: 20px;
+}
+
+.left {
+    flex: 1;
+    background-color: var(--green);
+    color: white;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.logo{
+    flex: 1;
+}
+.logo a{
+    color: white;
+    text-decoration: none;
+}
+.steps{
+    flex: 3;
+}
+
+.left .logo h1 {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+}
+
+.left .steps ul {
+    list-style: none;
+    padding: 0;
+}
+
+.left .steps li {
+    margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: 50px 1fr;
+}
+
+.second{
+    margin-left: 50px;
+}
+
+.left .steps strong {
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.left .steps p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.right {
+    flex: 2;
+    padding: 2rem;
+}
+
+.right .header h1 {
+    color: var(--green);
+    margin-bottom: 0.5rem;
+}
+
+.right .header h2 {
+    margin-bottom: 0.5rem;
+}
+
+.right .header p {
+    margin-bottom: 2rem;
+}
+
+.application-form {
+    max-width: 400px;
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+form p label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+form p input {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    background-color: #e6e6e6;
+    border-radius: 4px;
+    font-size: 1rem;
+
+}
+.signup {
+    margin: 1rem 0;
+    font-size: 1rem;
+}
+
+.signup a {
+    color: var(--green);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: var(--green);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+form p textarea {
+    height: 80px;
+    resize: none;  /* Prevent resizing of the textarea */
+}
+form p textarea,
+form p select {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;  /* Remove borders */
+    background-color: #e6e6e6; /* Ensure the background is transparent */
+    font-size: 1rem;
+    margin-bottom: 1rem;  /* Space below each form element */
+    box-sizing: border-box;  /* Ensure padding doesn't overflow */
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <div class="logo">
+                <a href="{%url 'home'%}"><h1>VegetableHub</h1></a>
+            </div>
+            <div class="steps">
+                <ul>
+                    <li class="first">
+                        <div class="div1">
+                            <span class="num">1</span>
+                        </div>
+                        
+                        <div class="div2"><strong>Personal information</strong>
+                            <p>Fill in personal informations</p></div>
+                    </li>
+                    <li class="second">
+                        <div class="div"><span class="num">2</span></div>
+                        <div class="div2"><strong> Farm informations</strong>
+                            <p>Fill information about the farm</p></div>
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="right">
+            <div class="header">
+                <h1>VegetableHub</h1>
+                <h2>Application</h2>
+                <p>Farm information</p>
+            </div>
+            <form class="application-form" action="" method="POST">
+                <h1>Application Submitted</h1>
+                   <p>{{ message }}</p>
+                
+            </form>
+            <p class="signup">Already have an account? <a href="{%url 'login-user'%}">Log In</a></p>
+        </div>
+    </div>
+</body>
+</html>
+
+
+

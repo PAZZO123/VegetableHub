@@ -1,3 +1,5 @@
+import json
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -41,7 +43,7 @@ def process_approved_applications(request):
             application.status = "Processed"
             application.save()
 
-    return HttpResponse("Approved applications have been processed into Farmers and Farms.")
+    return  render(request ,'Webapp/admin_dashboard.html')
 
 def application_personal(request):
     if request.method == 'POST':
@@ -81,7 +83,7 @@ def home(request):
         applications = Application.objects.filter(location__icontains=query, status="Processed")
     else:
         # Default to showing the first 6 processed applications
-        applications = Application.objects.filter(status="Processed")[:6]
+        applications = Application.objects.filter(status="Processed")[0:9]
 
     context = {
         "applications": applications,  # Pass applications to the template
@@ -89,9 +91,12 @@ def home(request):
     }
     
     return render(request, 'Webapp/home.html', context)
-
-def contact(request):
-    return render(request,'Webapp/contact.html',{})
+def map(request):
+    # Query all farmers
+    farmers = Farmer.objects.all().values('first_name', 'last_name', 'location')
+    # Convert the QuerySet to JSON
+    farmers_data = json.dumps(list(farmers))
+    return render(request, 'Webapp/map.html', {'farmers': farmers_data})
 def about(request):
     return render(request,'Webapp/about.html',{})
 def loginUser(request):
@@ -154,9 +159,15 @@ def application_success(request):
     return render(request, 'Webapp/application_success.html', {'message': "Your application has been submitted successfully!"})
 
 def adminDashboard(request):
+    Users = Register.objects.all().count()
+    Farms = Farm.objects.filter().count()
+    rejected_count = Application.objects.filter(status='Rejected').count()
     applications = Application.objects.filter(status="Pending")  # Adjust filter as needed
     context = {
-        "applications": applications
+        "applications": applications,
+        'Users':Users,
+        'Farms':Farms,
+        'rejected_count':rejected_count
     }
 
     return render(request, 'Webapp/admin_dashboard.html', context)
@@ -174,7 +185,7 @@ def update_status(request, application_id, status):
         application.status = status
         application.save()  # Save the changes to the database
 
-    return render(request, 'Webapp/admin_dashboard.html') 
+    return redirect('approve') 
 def adminAdd(request):
     applications = Application.objects.filter(status="Pending")  # Adjust filter as needed
     context = {
@@ -225,7 +236,7 @@ def deletem(request,pk):
         return HttpResponse('You are not allowed Here!!')
     if request.method=='POST':
         users.delete()
-        return redirect('home')
+        return redirect('view-user')
     return render(request, 'Webapp/delete.html',{'obj':users})
 
 
@@ -387,7 +398,7 @@ def ViewUserprofile(request, pk):
     return render(request, 'Webapp/user_profile.html', context)
 
 
-@login_required(login_url='login-user')
+
 def ContactFarmer(request,pk):
     applications = Application.objects.filter(status="Processed",pk=pk) # Adjust filter as needed
     context = {

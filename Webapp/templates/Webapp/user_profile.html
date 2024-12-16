@@ -361,13 +361,14 @@ button:hover {
 
 
 .heading{
-
+  font-size: 18px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
   margin-bottom: 20px;
   height:600px;
+  row-gap: 20px;
 }
 .whole{
   display: grid;
@@ -385,20 +386,19 @@ button:hover {
   margin-top: 5px;
 }
 
-.admin_profile{
-  margin-left: 20px;
-}
+
 
 .whole div{
   margin-bottom: 20px;
 }
 .admin_profile{
-  width: 60rem;
+  width: 40rem;
   margin-left: 10rem;
+  padding: 20px;
 }
 
 .info p{
-  width: 25rem;
+  text-align: left;
 }
 
 .right{
@@ -433,6 +433,9 @@ button{
 .info input[type="email"] {
     display: flex;
     width: 100%;
+    font-size: 18px;
+    border: none;
+    background-color:rgb(228, 228, 228);
 }
 
 /* Rwandan flag emoji next to the phone input */
@@ -474,11 +477,7 @@ button{
         font-size: 12px;
     }
 }
-form{
-  justify-content:center;
-  width:400px;
-  margin-left:250px;
-}
+
 
   </style>
 </head>
@@ -524,13 +523,14 @@ form{
         </div>
 
 
-        <div class="admin_profile">
-          <div class="heading">
+          <form class="admin_profile" method="POST" action="">
             <div class="profile_photo">
               <span class="fir"></span>
               <span class="sec"></span>
             </div>
-            <form method="POST" action="">
+            
+          <div class="heading">
+            
               {% csrf_token %}
               <div class="info">
                 <p>Name</p>
@@ -554,23 +554,21 @@ form{
               <div class="info">
                 <p>Product</p>
                 <input type="text" name="Vegetable_type" value="{{ farm.Vegetable_type }}" class="value">
+              </div>
+              <div class="info">
                 <p>Farm length</p>
                 <input type="text" name="area_size" value="{{ farm.area_size }}" class="value">
               </div>
-              <div class="info-farm">
-                <div class="left">
-                 
-                </div>
-              </div>
+              
               {% endfor %}
               <button type="submit" class="update">Update</button>
-            </form>
+            
           </div>
        
                     
               
-    </div>
-
+   
+  </form>
 
 
   <script>
@@ -611,6 +609,3 @@ form{
   </script>
 </body>
 </html>
-
-
-

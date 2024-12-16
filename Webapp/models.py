@@ -54,7 +54,7 @@ class Application(models.Model):
     status = models.CharField(max_length=20, default='Pending')
     production = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)  # Automatically set on creation
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True,default="Mbabazi")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True,default=2)
     Vegetable_type = models.CharField(max_length=20, default='Carrot')
     farm_image = models.ImageField(null=True, default="th1.jpeg")
 

@@ -565,6 +565,11 @@
                 <button class="search-btn" type="submit"><img class="search-icon" src="{% static "Webapp/images/search-interface-symbol.png" %}" alt="Search button"></button>
             </form>
             <button id="searchByMap" class="search-by-map">Search by Map</button>
+            <script>
+              document.getElementById('searchByMap').addEventListener('click', function () {
+                  window.location.href = "{% url 'map' %}";
+              });
+          </script>
         </div>
    
     </section>
@@ -694,17 +699,7 @@
         <p>&copy;2024 VegetableHub | All Rights Reserved</p>
       </footer>
       <script>
-        document.getElementById('searchByMap').addEventListener('click', function () {
-            // Get the value of the search input
-            const query = document.querySelector('input[name="query"]').value.trim();
-            
-            // Redirect to Google Maps with the query
-            const googleMapsUrl = query 
-                ? `https://www.google.com/maps/search/${encodeURIComponent(query)}/`
-                : `https://www.google.com/maps`;
-            
-            window.open(googleMapsUrl, '_blank'); // Open in a new tab
-        });
+   
     </script>
 </body>
 </html>
